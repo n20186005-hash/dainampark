@@ -8,6 +8,10 @@
 ./package.json
 ./pnpm-lock.yaml
 ./public/.assetsignore
+./public/images/dai-nam-bien-nhan-tao.jpg
+./public/images/dai-nam-cong-rong-vang.jpg
+./public/images/dai-nam-quang-truong.jpg
+./public/images/dai-nam-voi.jpg
 ./public/brand/apple-touch-icon.png
 ./public/brand/favicon-16.png
 ./public/brand/favicon-32.png

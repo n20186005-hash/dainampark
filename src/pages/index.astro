@@ -17,28 +17,28 @@ const place = {
 
 const photos = [
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/6/6c/250624_Khu_Du_l%E1%BB%8Bch_%C4%90%E1%BA%A1i_Nam_%282%29.jpg',
+    src: '/images/dai-nam-quang-truong.jpg',
     alt: 'Quảng trường trung tâm Khu du lịch Đại Nam với công trình kiến trúc màu vàng và vườn hoa',
     caption: 'Quảng trường trung tâm — ảnh thực tế tại Đại Nam',
     credit: 'Xuanphuocle / Wikimedia Commons / CC0 1.0',
     page: 'https://commons.wikimedia.org/wiki/File:250624_Khu_Du_l%E1%BB%8Bch_%C4%90%E1%BA%A1i_Nam_(2).jpg'
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/8/81/Bi%E1%BB%83n_%C4%90%E1%BA%A1i_Nam.jpg',
+    src: '/images/dai-nam-bien-nhan-tao.jpg',
     alt: 'Biển nhân tạo Đại Nam với hồ sóng và du khách đang vui chơi dưới nước',
     caption: 'Biển nhân tạo Đại Nam',
     credit: 'Liftold / Wikimedia Commons / CC BY-SA 3.0',
     page: 'https://commons.wikimedia.org/wiki/File:Bi%E1%BB%83n_%C4%90%E1%BA%A1i_Nam.jpg'
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Dai_Nam.jpg',
+    src: '/images/dai-nam-cong-rong-vang.jpg',
     alt: 'Cổng rồng vàng tại khu vui chơi Đại Nam',
     caption: 'Một góc khu vui chơi với kiến trúc rồng vàng',
     credit: 'Liftold / Wikimedia Commons / CC BY-SA 3.0',
     page: 'https://commons.wikimedia.org/wiki/File:Dai_Nam.jpg'
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/d/da/Voi_t%E1%BA%A1i_B%C3%ACnh_D%C6%B0%C6%A1ng.jpg',
+    src: '/images/dai-nam-voi.jpg',
     alt: 'Voi tại vườn thú Đại Nam',
     caption: 'Vườn thú Đại Nam — voi trong khu nuôi dưỡng',
     credit: 'Wikimedia Commons',
@@ -109,7 +109,7 @@ const touristAttraction = {
       closes: '18:00'
     }
   ],
-  image: photos.slice(0, 3).map((p) => p.src),
+  image: siteBase ? photos.slice(0, 3).map((p) => new URL(p.src, `${siteBase}/`).toString()) : undefined,
   sameAs: [
     'https://khudulichdainam.com.vn/',
     'https://maps.app.goo.gl/TX4Pg89WH76YqUMa9'
@@ -217,7 +217,10 @@ const faqSchema = {
           {photos.map((photo, index) => (
             <figure class={`photo-card ${index === 0 ? 'lg:col-span-2 lg:row-span-2' : index === 1 ? 'lg:col-span-2' : ''}`}>
               <img src={photo.src} alt={photo.alt} loading={index === 0 ? 'eager' : 'lazy'} referrerpolicy="no-referrer" />
-              <figcaption>{photo.caption}</figcaption>
+              <figcaption>
+                {photo.caption}
+                <span class="mt-1 block text-[0.68rem] opacity-80">{photo.credit}</span>
+              </figcaption>
             </figure>
           ))}
         </div>
