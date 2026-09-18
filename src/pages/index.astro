@@ -1,0 +1,472 @@
+---
+import '../styles/global.css';
+
+const siteBase = Astro.site ? Astro.site.toString().replace(/\/$/, '') : '';
+const canonical = siteBase ? new URL(Astro.url.pathname, `${siteBase}/`).toString() : undefined;
+const ogImage = siteBase ? new URL('/brand/apple-touch-icon.png', `${siteBase}/`).toString() : undefined;
+
+const place = {
+  name: 'Khu du lịch Đại Nam',
+  address: '1765A QL13, Phú An, Thành phố Hồ Chí Minh, Việt Nam',
+  phone: '+84 274 384 5878',
+  rating: 4.4,
+  reviewCount: 17761,
+  lat: 11.04326,
+  lng: 106.6348,
+};
+
+const photos = [
+  {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/6/6c/250624_Khu_Du_l%E1%BB%8Bch_%C4%90%E1%BA%A1i_Nam_%282%29.jpg',
+    alt: 'Quảng trường trung tâm Khu du lịch Đại Nam với công trình kiến trúc màu vàng và vườn hoa',
+    caption: 'Quảng trường trung tâm — ảnh thực tế tại Đại Nam',
+    credit: 'Xuanphuocle / Wikimedia Commons / CC0 1.0',
+    page: 'https://commons.wikimedia.org/wiki/File:250624_Khu_Du_l%E1%BB%8Bch_%C4%90%E1%BA%A1i_Nam_(2).jpg'
+  },
+  {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/8/81/Bi%E1%BB%83n_%C4%90%E1%BA%A1i_Nam.jpg',
+    alt: 'Biển nhân tạo Đại Nam với hồ sóng và du khách đang vui chơi dưới nước',
+    caption: 'Biển nhân tạo Đại Nam',
+    credit: 'Liftold / Wikimedia Commons / CC BY-SA 3.0',
+    page: 'https://commons.wikimedia.org/wiki/File:Bi%E1%BB%83n_%C4%90%E1%BA%A1i_Nam.jpg'
+  },
+  {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Dai_Nam.jpg',
+    alt: 'Cổng rồng vàng tại khu vui chơi Đại Nam',
+    caption: 'Một góc khu vui chơi với kiến trúc rồng vàng',
+    credit: 'Liftold / Wikimedia Commons / CC BY-SA 3.0',
+    page: 'https://commons.wikimedia.org/wiki/File:Dai_Nam.jpg'
+  },
+  {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/d/da/Voi_t%E1%BA%A1i_B%C3%ACnh_D%C6%B0%C6%A1ng.jpg',
+    alt: 'Voi tại vườn thú Đại Nam',
+    caption: 'Vườn thú Đại Nam — voi trong khu nuôi dưỡng',
+    credit: 'Wikimedia Commons',
+    page: 'https://commons.wikimedia.org/wiki/File:Voi_t%E1%BA%A1i_B%C3%ACnh_D%C6%B0%C6%A1ng.jpg'
+  }
+];
+
+const faq = [
+  {
+    q: 'Khu du lịch Đại Nam mở cửa lúc mấy giờ?',
+    a: 'Khung giờ phổ biến đang được công bố là khoảng 08:00–17:00 các ngày trong tuần và kéo dài đến khoảng 18:00 vào cuối tuần đối với một số phân khu. Lịch của Kim Điện, Bảo Tháp, biển, vườn thú và khu trò chơi có thể khác nhau, vì vậy nên kiểm tra kênh chính thức hoặc gọi hotline trước ngày đi.'
+  },
+  {
+    q: 'Vé vào cổng và vé vui chơi có giống nhau không?',
+    a: 'Không nhất thiết. Đại Nam thường tách vé vào cổng khỏi vé của từng phân khu hoặc combo trò chơi. Chính sách khuyến mãi thay đổi theo thời điểm; hãy xem bảng giá chính thức tại quầy hoặc kênh của khu du lịch trước khi mua.'
+  },
+  {
+    q: 'Nên dành bao lâu để tham quan?',
+    a: 'Khoảng 5–8 giờ phù hợp nếu muốn kết hợp khu văn hóa, vườn thú và một phần khu vui chơi. Nếu đi cùng trẻ nhỏ hoặc muốn tắm biển, nên dành trọn một ngày để không phải di chuyển quá gấp.'
+  },
+  {
+    q: 'Có phù hợp cho gia đình có trẻ nhỏ không?',
+    a: 'Có. Khuôn viên rộng, có vườn thú, biển nhân tạo và nhiều trò chơi. Gia đình nên mang nón, nước uống, đồ thay nếu chơi nước và ưu tiên xe đẩy gọn nhẹ hoặc phương tiện nội khu khi cần.'
+  },
+  {
+    q: 'Có chỗ đậu ô tô và xe máy không?',
+    a: 'Khu du lịch có khu vực gửi xe phục vụ khách. Vào cuối tuần và dịp lễ nên đến sớm, làm theo hướng dẫn phân luồng tại cổng và giữ vé gửi xe đến khi rời bãi.'
+  }
+];
+
+const touristAttraction = {
+  '@context': 'https://schema.org',
+  '@type': ['TouristAttraction', 'LocalBusiness'],
+  name: place.name,
+  description: 'Cẩm nang tham quan Khu du lịch Đại Nam: văn hóa, vườn thú, biển nhân tạo, khu trò chơi, giao thông và kinh nghiệm đi trong ngày.',
+  telephone: place.phone,
+  ...(canonical ? { url: canonical } : {}),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '1765A QL13',
+    addressLocality: 'Phú An',
+    addressRegion: 'Thành phố Hồ Chí Minh',
+    addressCountry: 'VN'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: place.lat,
+    longitude: place.lng
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: place.rating,
+    reviewCount: place.reviewCount,
+    bestRating: 5,
+    worstRating: 1
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:00',
+      closes: '17:00'
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Saturday', 'Sunday'],
+      opens: '08:00',
+      closes: '18:00'
+    }
+  ],
+  image: photos.slice(0, 3).map((p) => p.src),
+  sameAs: [
+    'https://khudulichdainam.com.vn/',
+    'https://maps.app.goo.gl/TX4Pg89WH76YqUMa9'
+  ]
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a
+    }
+  }))
+};
+---
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#073f35" />
+    <title>Khu du lịch Đại Nam | Cẩm nang tham quan, vé & đường đi</title>
+    <meta name="description" content="Cẩm nang tham quan Khu du lịch Đại Nam bằng tiếng Việt: điểm nổi bật, vé/chi phí, giờ tham khảo, giao thông, đậu xe, ăn uống, điểm gần đó và FAQ." />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:title" content="Khu du lịch Đại Nam — cẩm nang tham quan" />
+    <meta property="og:description" content="Lên kế hoạch một ngày ở Đại Nam: văn hóa, vườn thú, biển nhân tạo, vui chơi, đường đi và chi phí." />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/brand/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/brand/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <script type="application/ld+json" set:html={JSON.stringify(touristAttraction)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+  </head>
+  <body>
+    <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#073f35]/92 backdrop-blur-xl">
+      <div class="section-shell flex min-h-18 items-center justify-between gap-5 py-3">
+        <a href="#top" aria-label="Về đầu trang" class="shrink-0 rounded-lg bg-[#fffaf0] px-2 py-1">
+          <img src="/brand/logo.svg" alt="Đại Nam Cẩm nang tham quan" class="h-10 w-auto" width="340" height="88" />
+        </a>
+        <nav aria-label="Điều hướng chính" class="hidden items-center gap-5 lg:flex">
+          <a class="nav-link" href="#kham-pha">Khám phá</a>
+          <a class="nav-link" href="#ve">Vé & chi phí</a>
+          <a class="nav-link" href="#di-lai">Giao thông</a>
+          <a class="nav-link" href="#an-uong">Ẩm thực</a>
+          <a class="nav-link" href="#gan-day">Gần đây</a>
+          <a class="nav-link" href="#faq">FAQ</a>
+        </nav>
+        <a class="btn-primary text-sm" href="https://maps.app.goo.gl/TX4Pg89WH76YqUMa9" target="_blank" rel="noreferrer">Mở Google Maps</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero-image pattern-frame min-h-[780px] pt-28 text-white">
+        <div class="section-shell grid min-h-[680px] items-end gap-10 pb-20 pt-16 lg:grid-cols-[1.15fr_.85fr] lg:items-center lg:pb-14">
+          <div class="max-w-3xl">
+            <p class="mb-5 inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur">Văn hóa · thiên nhiên · giải trí · thể thao</p>
+            <h1 class="text-5xl font-bold leading-[.98] sm:text-6xl lg:text-8xl">Một ngày rộng mở ở <span class="text-[#f2cc61]">Đại Nam</span></h1>
+            <p class="mt-7 max-w-2xl text-lg leading-8 text-emerald-50/90">Không chỉ là khu vui chơi. Đại Nam là một quần thể lớn nơi kiến trúc văn hóa, Kim Điện, vườn thú, biển nhân tạo và những trải nghiệm tốc độ cùng nằm trong một hành trình.</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a class="btn-primary" href="#lich-trinh">Xem lịch trình gợi ý</a>
+              <a class="btn-ghost" href="#ban-do">Xem bản đồ</a>
+            </div>
+            <div class="mt-10 flex flex-wrap gap-x-8 gap-y-4 text-sm text-emerald-50/80">
+              <span><b class="text-white">★ {place.rating}</b> / 5 · {place.reviewCount.toLocaleString('vi-VN')} đánh giá</span>
+              <span><b class="text-white">1765A QL13</b> · Phú An</span>
+              <span><b class="text-white">{place.phone}</b></span>
+            </div>
+          </div>
+
+          <aside class="card border-white/15 bg-[#fffaf0]/95 p-6 text-[#17352f] lg:ml-auto lg:max-w-md">
+            <p class="kicker">Gợi ý nhanh</p>
+            <h2 class="mt-3 text-3xl font-bold">Đi trọn một ngày sẽ thoải mái nhất</h2>
+            <div class="mt-5 grid gap-4 text-sm">
+              <div class="rounded-2xl bg-[#e7f2ed] p-4"><b>Buổi sáng:</b> ưu tiên khu văn hóa, Kim Điện và chụp ảnh khi nắng còn dịu.</div>
+              <div class="rounded-2xl bg-[#fbefc8] p-4"><b>Buổi trưa:</b> ăn, nghỉ, di chuyển bằng phương tiện nội khu nếu cần.</div>
+              <div class="rounded-2xl bg-[#e6f3f5] p-4"><b>Buổi chiều:</b> vườn thú, trò chơi hoặc biển nhân tạo tùy nhóm.</div>
+            </div>
+            <p class="mt-5 text-xs leading-5 text-slate-600">Giờ mở cửa và lịch từng phân khu có thể thay đổi. Nên kiểm tra kênh chính thức hoặc hotline trước khi xuất phát.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="kham-pha" class="section-shell py-24">
+        <div class="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+          <div>
+            <p class="kicker">Bản sắc Đại Nam</p>
+            <h2 class="mt-4 text-4xl font-bold leading-tight sm:text-5xl">Từ sắc vàng Văn Hiến đến mặt nước xanh của biển nhân tạo</h2>
+          </div>
+          <div class="prose-vn grid gap-4 sm:grid-cols-2">
+            <p>Điểm đặc biệt của Đại Nam nằm ở sự tương phản: những công trình mang ngôn ngữ kiến trúc truyền thống, trục cảnh quan rộng và sắc vàng đặc trưng nằm ngay cạnh các khu giải trí hiện đại.</p>
+            <p>Khuôn viên rất lớn, vì vậy trải nghiệm tốt hơn khi chọn 2–3 mục tiêu chính thay vì cố đi hết mọi phân khu trong thời gian ngắn.</p>
+          </div>
+        </div>
+
+        <div class="mt-12 grid auto-rows-[290px] gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {photos.map((photo, index) => (
+            <figure class={`photo-card ${index === 0 ? 'lg:col-span-2 lg:row-span-2' : index === 1 ? 'lg:col-span-2' : ''}`}>
+              <img src={photo.src} alt={photo.alt} loading={index === 0 ? 'eager' : 'lazy'} referrerpolicy="no-referrer" />
+              <figcaption>{photo.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <p class="mt-4 text-xs leading-5 text-slate-500">Ảnh thực tế từ Wikimedia Commons. Thông tin tác giả & giấy phép ở cuối trang.</p>
+      </section>
+
+      <section class="bg-[#073f35] py-24 text-white">
+        <div class="section-shell">
+          <p class="kicker !text-[#f1c95f]">4 trải nghiệm chính</p>
+          <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <article class="rounded-[1.7rem] border border-white/10 bg-white/5 p-6">
+              <span class="text-3xl">🏯</span><h3 class="mt-5 text-2xl font-bold">Văn hóa & tâm linh</h3><p class="mt-3 text-sm leading-6 text-emerald-50/75">Kim Điện, Bảo Tháp, trục quảng trường và những chi tiết gợi nhắc mỹ thuật truyền thống Việt.</p>
+            </article>
+            <article class="rounded-[1.7rem] border border-white/10 bg-white/5 p-6">
+              <span class="text-3xl">🐘</span><h3 class="mt-5 text-2xl font-bold">Vườn thú</h3><p class="mt-3 text-sm leading-6 text-emerald-50/75">Một trong những khu vực được các gia đình yêu thích, với không gian quan sát nhiều loài thú lớn.</p>
+            </article>
+            <article class="rounded-[1.7rem] border border-white/10 bg-white/5 p-6">
+              <span class="text-3xl">🌊</span><h3 class="mt-5 text-2xl font-bold">Biển nhân tạo</h3><p class="mt-3 text-sm leading-6 text-emerald-50/75">Hồ sóng quy mô lớn, phù hợp để dành một buổi chiều riêng nếu nhóm muốn vui chơi dưới nước.</p>
+            </article>
+            <article class="rounded-[1.7rem] border border-white/10 bg-white/5 p-6">
+              <span class="text-3xl">🎢</span><h3 class="mt-5 text-2xl font-bold">Trò chơi & thể thao</h3><p class="mt-3 text-sm leading-6 text-emerald-50/75">Từ trò chơi gia đình đến các khu trải nghiệm tốc độ; lịch hoạt động phụ thuộc từng hạng mục.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="ve" class="section-shell py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div class="card p-7 sm:p-9">
+            <p class="kicker">Vé / chi phí</p>
+            <h2 class="mt-4 text-4xl font-bold">Đừng nhầm “vé vào cổng” với “vé trải nghiệm”</h2>
+            <p class="mt-5 leading-7 text-slate-600">Đại Nam thường có chính sách riêng cho cổng chính, biển nhân tạo, vườn thú và combo trò chơi. Năm 2026 từng có các đợt miễn phí vé vào cổng, trong khi các phân khu vẫn có thể thu phí riêng.</p>
+            <div class="mt-7 space-y-3">
+              <div class="flex gap-4 rounded-2xl bg-[#f6ecd0] p-4"><b class="min-w-28">Vào cổng</b><span class="text-sm leading-6">Có thể có chương trình miễn/ưu đãi theo thời điểm.</span></div>
+              <div class="flex gap-4 rounded-2xl bg-[#e3f1ec] p-4"><b class="min-w-28">Phân khu</b><span class="text-sm leading-6">Biển, vườn thú và trò chơi có bảng giá riêng hoặc vé combo.</span></div>
+              <div class="flex gap-4 rounded-2xl bg-[#e7edf5] p-4"><b class="min-w-28">Trẻ em</b><span class="text-sm leading-6">Nhiều loại vé phân theo chiều cao; cần kiểm tra quy định tại thời điểm mua.</span></div>
+            </div>
+            <p class="mt-6 text-xs leading-5 text-slate-500">Không cố định bảng giá trên trang để tránh thông tin cũ. Khi lên kế hoạch, nên kiểm tra trang chính thức hoặc gọi hotline.</p>
+          </div>
+
+          <div id="thoi-diem" class="card overflow-hidden bg-[#0e6a58] text-white">
+            <div class="p-7 sm:p-9">
+              <p class="kicker !text-[#f5d36f]">Thời điểm & thời lượng</p>
+              <h2 class="mt-4 text-4xl font-bold">Đi sớm, nghỉ giữa trưa, chơi dài đến chiều</h2>
+              <div class="mt-7 grid gap-4 sm:grid-cols-2">
+                <div class="rounded-2xl bg-white/10 p-5"><p class="text-sm text-emerald-100">Khung giờ dễ chịu</p><p class="mt-1 text-xl font-bold">08:00–11:00</p><p class="mt-2 text-sm leading-6 text-emerald-50/80">Đi bộ, chụp ảnh, tham quan khu kiến trúc.</p></div>
+                <div class="rounded-2xl bg-white/10 p-5"><p class="text-sm text-emerald-100">Thời lượng nên dành</p><p class="mt-1 text-xl font-bold">5–8 giờ</p><p class="mt-2 text-sm leading-6 text-emerald-50/80">Đủ cho 2–3 phân khu mà không quá vội.</p></div>
+              </div>
+              <p class="mt-6 text-sm leading-6 text-emerald-50/80">Cuối tuần và ngày lễ thường đông hơn. Nếu ưu tiên biển nhân tạo hoặc trò chơi, đến sớm giúp giảm thời gian xếp hàng và tránh phần nắng gắt nhất.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="lich-trinh" class="border-y border-emerald-900/10 bg-[#f4edda] py-24">
+        <div class="section-shell grid gap-12 lg:grid-cols-[.72fr_1.28fr]">
+          <div>
+            <p class="kicker">Lịch trình 1 ngày</p>
+            <h2 class="mt-4 text-4xl font-bold">Một nhịp đi hợp lý cho gia đình và nhóm bạn</h2>
+            <p class="mt-5 leading-7 text-slate-600">Cách sắp xếp dưới đây ưu tiên đi bộ ngoài trời vào buổi sáng, nghỉ giữa trưa và dành buổi chiều cho hoạt động có tính trải nghiệm cao hơn.</p>
+          </div>
+          <div class="space-y-7">
+            <div class="timeline-step"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">BUỔI SÁNG</p><h3 class="mt-1 text-2xl font-bold">Quảng trường → khu Văn Hiến → Kim Điện</h3><p class="mt-2 text-sm leading-6 text-slate-600">Đi sớm để có ánh sáng đẹp và dễ chụp ảnh; kiểm tra lịch mở cửa riêng của khu tâm linh.</p></div>
+            <div class="timeline-step"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">GIỮA TRƯA</p><h3 class="mt-1 text-2xl font-bold">Ăn trưa & nghỉ chân</h3><p class="mt-2 text-sm leading-6 text-slate-600">Khuôn viên rộng, nên tránh cố di chuyển liên tục vào lúc nắng cao.</p></div>
+            <div class="timeline-step"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">ĐẦU CHIỀU</p><h3 class="mt-1 text-2xl font-bold">Vườn thú hoặc khu trò chơi</h3><p class="mt-2 text-sm leading-6 text-slate-600">Chọn một trọng tâm để có thời gian trải nghiệm thay vì chỉ đi ngang qua.</p></div>
+            <div class="timeline-step"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">CUỐI CHIỀU</p><h3 class="mt-1 text-2xl font-bold">Biển nhân tạo / quay lại điểm check-in</h3><p class="mt-2 text-sm leading-6 text-slate-600">Nếu tắm biển, hãy dành đủ thời gian thay đồ và ra cổng trước giờ phân khu đóng cửa.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="di-lai" class="section-shell py-24">
+        <p class="kicker">Chi tiết giao thông</p>
+        <div class="mt-4 grid gap-10 lg:grid-cols-[.9fr_1.1fr]">
+          <div>
+            <h2 class="text-4xl font-bold sm:text-5xl">Trục QL13 là đường tiếp cận dễ nhớ nhất</h2>
+            <p class="mt-5 max-w-2xl leading-7 text-slate-600">Từ trung tâm TP.HCM, hướng đi phổ biến là qua khu Bình Triệu rồi tiếp tục theo QL13/Đại lộ Bình Dương. Thời gian thực tế phụ thuộc điểm xuất phát và lưu lượng xe, nhất là cuối tuần.</p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="card p-6"><span class="text-2xl">🚗</span><h3 class="mt-3 text-xl font-bold">Ô tô / taxi</h3><p class="mt-2 text-sm leading-6 text-slate-600">Tiện nhất cho gia đình; nhập chính xác “Khu du lịch Đại Nam” trên bản đồ để tránh nhầm cổng.</p></div>
+            <div class="card p-6"><span class="text-2xl">🏍️</span><h3 class="mt-3 text-xl font-bold">Xe máy</h3><p class="mt-2 text-sm leading-6 text-slate-600">QL13 khá thẳng; nên tránh khung giờ cao điểm và chuẩn bị áo mưa/nắng theo mùa.</p></div>
+            <div class="card p-6"><span class="text-2xl">🚌</span><h3 class="mt-3 text-xl font-bold">Xe buýt</h3><p class="mt-2 text-sm leading-6 text-slate-600">Mạng lưới tuyến có thể điều chỉnh. Tra cứu ứng dụng giao thông địa phương vào đúng ngày đi trước khi chọn tuyến.</p></div>
+            <div class="card p-6"><span class="text-2xl">📍</span><h3 class="mt-3 text-xl font-bold">Địa chỉ</h3><p class="mt-2 text-sm leading-6 text-slate-600">1765A QL13, Phú An, TP.HCM, Việt Nam · mã vị trí Google do khách cung cấp: 2JRJ+H8.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="dau-xe" class="bg-[#0b4f42] py-20 text-white">
+        <div class="section-shell grid gap-8 md:grid-cols-[.7fr_1.3fr] md:items-center">
+          <div><p class="kicker !text-[#f4d374]">Thông tin đậu xe</p><h2 class="mt-4 text-4xl font-bold">Đến sớm để gửi xe nhẹ nhàng hơn</h2></div>
+          <div class="grid gap-4 sm:grid-cols-3">
+            <div class="rounded-2xl bg-white/8 p-5"><b>Ô tô</b><p class="mt-2 text-sm leading-6 text-emerald-50/75">Theo phân luồng bãi xe tại cổng, nhất là ngày đông khách.</p></div>
+            <div class="rounded-2xl bg-white/8 p-5"><b>Xe máy</b><p class="mt-2 text-sm leading-6 text-emerald-50/75">Giữ vé xe cẩn thận và chụp lại vị trí dãy gửi xe.</p></div>
+            <div class="rounded-2xl bg-white/8 p-5"><b>Nhóm đông</b><p class="mt-2 text-sm leading-6 text-emerald-50/75">Thống nhất một điểm tập trung trước khi tách nhóm vào tham quan.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="an-uong" class="section-shell py-24">
+        <div class="grid gap-10 lg:grid-cols-[.65fr_1.35fr]">
+          <div>
+            <p class="kicker">Ẩm thực quanh khu</p>
+            <h2 class="mt-4 text-4xl font-bold">Ăn trong khu cho tiện, hoặc đi QL13 nếu muốn nhiều lựa chọn hơn</h2>
+            <p class="mt-5 leading-7 text-slate-600">Cổng du lịch địa phương ghi nhận nhiều nhà hàng và quán cà phê trong bán kính vài km quanh Đại Nam. Thực tế lựa chọn thay đổi nhanh, nên ưu tiên nơi có đánh giá gần đây và chỗ đậu xe phù hợp.</p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-3">
+            <article class="card p-6"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">TRONG KHU</p><h3 class="mt-3 text-xl font-bold">Tiện cho gia đình</h3><p class="mt-2 text-sm leading-6 text-slate-600">Giảm thời gian di chuyển, phù hợp nếu lịch trình đã kín vườn thú + biển + trò chơi.</p></article>
+            <article class="card p-6"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">QUANH QL13</p><h3 class="mt-3 text-xl font-bold">Món Việt & quán gia đình</h3><p class="mt-2 text-sm leading-6 text-slate-600">Có thể tìm cơm, lẩu, món đồng quê và nhà hàng sân vườn dọc trục lớn.</p></article>
+            <article class="card p-6"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">CÀ PHÊ</p><h3 class="mt-3 text-xl font-bold">Nghỉ trước khi về</h3><p class="mt-2 text-sm leading-6 text-slate-600">Khu Thủ Dầu Một cũ có nhiều quán sân vườn, phù hợp dừng chân trước hành trình về trung tâm.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="gan-day" class="border-y border-emerald-900/10 bg-white py-24">
+        <div class="section-shell">
+          <p class="kicker">Điểm tham quan gần đó</p>
+          <h2 class="mt-4 max-w-3xl text-4xl font-bold sm:text-5xl">Nếu còn thời gian, nối Đại Nam với một lát cắt khác của vùng Bình Dương cũ</h2>
+          <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <article class="card p-6"><p class="text-3xl">🎨</p><h3 class="mt-4 text-xl font-bold">Làng sơn mài Tương Bình Hiệp</h3><p class="mt-2 text-sm leading-6 text-slate-600">Không gian nghề thủ công truyền thống, phù hợp với người thích văn hóa bản địa.</p></article>
+            <article class="card p-6"><p class="text-3xl">🏙️</p><h3 class="mt-4 text-xl font-bold">Công viên Thành phố mới</h3><p class="mt-2 text-sm leading-6 text-slate-600">Không gian đô thị rộng, thoáng; dễ kết hợp nếu di chuyển về khu trung tâm hành chính.</p></article>
+            <article class="card p-6"><p class="text-3xl">🎋</p><h3 class="mt-4 text-xl font-bold">Làng Tre Phú An</h3><p class="mt-2 text-sm leading-6 text-slate-600">Điểm xanh thiên về thực vật, nghiên cứu và trải nghiệm nhẹ nhàng ngoài trời.</p></article>
+            <article class="card p-6"><p class="text-3xl">🏠</p><h3 class="mt-4 text-xl font-bold">Nhà cổ Nguyễn Tri Quang</h3><p class="mt-2 text-sm leading-6 text-slate-600">Một lựa chọn mang tính di sản, tạo đối trọng thú vị với quy mô đồ sộ của Đại Nam.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="ban-do" class="section-shell py-24">
+        <div class="grid gap-8 lg:grid-cols-[.6fr_1.4fr] lg:items-center">
+          <div>
+            <p class="kicker">Bản đồ</p>
+            <h2 class="mt-4 text-4xl font-bold">1765A QL13, Phú An</h2>
+            <p class="mt-4 leading-7 text-slate-600">Bản đồ được nhúng với ngôn ngữ tiếng Việt và khu vực Việt Nam. Dùng nút “Mở Google Maps” để xem điều hướng theo vị trí xuất phát thực tế.</p>
+            <a class="btn-primary mt-6" href="https://maps.app.goo.gl/TX4Pg89WH76YqUMa9" target="_blank" rel="noreferrer">Chỉ đường trên Google Maps</a>
+          </div>
+          <div class="overflow-hidden rounded-[1.8rem] border border-emerald-900/10 shadow-2xl shadow-emerald-950/10">
+            <iframe
+              title="Bản đồ Khu du lịch Đại Nam"
+              src="https://www.google.com/maps?q=Khu%20du%20l%E1%BB%8Bch%20%C4%90%E1%BA%A1i%20Nam%2C%201765A%20QL13%2C%20Ph%C3%BA%20An%2C%20Vi%E1%BB%87t%20Nam&output=embed&hl=vi&gl=vn"
+              width="100%"
+              height="510"
+              style="border:0"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="bg-[#f4edda] py-24">
+        <div class="section-shell grid gap-10 lg:grid-cols-[.55fr_1.45fr]">
+          <div><p class="kicker">FAQ</p><h2 class="mt-4 text-4xl font-bold">Những câu hỏi thường gặp trước khi đi</h2><p class="mt-4 text-sm leading-6 text-slate-600">Thông tin hoạt động thực tế có thể thay đổi theo mùa, phân khu và sự kiện.</p></div>
+          <div class="space-y-3">
+            {faq.map((item) => (
+              <details class="card group px-5 py-4">
+                <summary class="flex items-center justify-between gap-5 font-bold"><span>{item.q}</span><span class="faq-plus text-2xl font-light text-[#0e6a58]">+</span></summary>
+                <p class="mt-3 pr-8 text-sm leading-6 text-slate-600">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell py-20">
+        <div class="rounded-[2rem] bg-[#a53b31] p-8 text-white sm:p-10 lg:flex lg:items-center lg:justify-between">
+          <div><p class="text-sm font-bold uppercase tracking-[.18em] text-orange-100">Trước khi xuất phát</p><h2 class="mt-3 text-3xl font-bold">Kiểm tra lịch phân khu, vé và thời tiết trong ngày</h2></div>
+          <div class="mt-6 flex flex-wrap gap-3 lg:mt-0"><a class="btn-primary" href="tel:+842743845878">Gọi +84 274 384 5878</a><a class="btn-ghost" href="https://khudulichdainam.com.vn/" target="_blank" rel="noreferrer">Trang chính thức</a></div>
+        </div>
+      </section>
+
+      <section class="section-shell pb-16">
+        <details class="rounded-2xl border border-emerald-900/10 bg-white/60 px-5 py-4 text-xs leading-5 text-slate-500">
+          <summary class="font-bold text-slate-700">Ghi công ảnh & nguồn tham khảo</summary>
+          <div class="mt-4 grid gap-2">
+            {photos.map((photo) => <p><a class="underline" href={photo.page} target="_blank" rel="noreferrer">{photo.caption}</a> — {photo.credit}.</p>)}
+            <p>Nguồn thông tin tham khảo: website chính thức Khu du lịch Đại Nam, Cổng Du lịch Bình Dương, Google Maps và các trang mô tả ảnh Wikimedia Commons.</p>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer class="border-t border-white/10 bg-[#052f28] py-10 text-emerald-50/80">
+      <div class="section-shell flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+        <img src="/brand/logo.svg" alt="Đại Nam Cẩm nang tham quan" class="h-10 w-auto rounded-md bg-[#fffaf0] px-2 py-1" width="340" height="88" />
+        <p class="max-w-2xl text-xs leading-5">Trang cẩm nang độc lập, không phải website chính thức và không đại diện cho Khu du lịch Đại Nam. Hãy xác nhận giá vé, lịch hoạt động và quy định trực tiếp với đơn vị vận hành trước chuyến đi.</p>
+        <div class="flex flex-wrap gap-4 text-xs font-bold"><a class="underline underline-offset-4" href="/privacy">Quyền riêng tư</a><a class="underline underline-offset-4" href="/terms">Điều khoản</a><button id="open-cookie-settings" class="text-left underline underline-offset-4 md:text-right">Cài đặt cookie</button></div>
+      </div>
+    </footer>
+
+    <div id="cookie-banner" class="cookie-panel fixed inset-x-3 bottom-3 z-[70] mx-auto max-w-3xl rounded-2xl border border-emerald-900/15 bg-[#fffdf7] p-5 shadow-2xl" hidden>
+      <div class="sm:flex sm:items-center sm:justify-between sm:gap-6">
+        <div><p class="font-bold">Quyền riêng tư & đo lường</p><p class="mt-1 text-sm leading-5 text-slate-600">Trang chỉ tải Google Analytics 4 sau khi bạn đồng ý cookie đo lường. Cookie thiết yếu không dùng cho quảng cáo.</p></div>
+        <div class="mt-4 flex shrink-0 gap-2 sm:mt-0"><button id="cookie-decline" class="rounded-full border border-slate-300 px-4 py-2 text-sm font-bold">Từ chối</button><button id="cookie-accept" class="rounded-full bg-[#0e6a58] px-4 py-2 text-sm font-bold text-white">Đồng ý</button></div>
+      </div>
+    </div>
+
+    <div id="cookie-settings" class="cookie-panel fixed inset-0 z-[80] grid place-items-center bg-black/45 p-4" hidden>
+      <div class="w-full max-w-lg rounded-[1.6rem] bg-[#fffdf7] p-6 shadow-2xl">
+        <div class="flex items-start justify-between gap-5"><div><p class="kicker">Cookie</p><h2 class="mt-2 text-3xl font-bold">Tùy chọn đo lường</h2></div><button id="cookie-close" class="text-2xl" aria-label="Đóng">×</button></div>
+        <div class="mt-6 flex items-center justify-between gap-5 rounded-2xl bg-[#e9f2ee] p-4"><div><b>Google Analytics 4</b><p class="mt-1 text-xs leading-5 text-slate-600">Giúp hiểu cách người dùng tương tác với trang. Chỉ bật khi bạn đồng ý.</p></div><input id="analytics-toggle" type="checkbox" class="h-5 w-5 accent-[#0e6a58]" /></div>
+        <button id="cookie-save" class="mt-5 w-full rounded-full bg-[#0e6a58] px-4 py-3 font-bold text-white">Lưu lựa chọn</button>
+      </div>
+    </div>
+
+    <script is:inline>
+      (() => {
+        const consentKey = 'daiNamAnalyticsConsent';
+        const banner = document.getElementById('cookie-banner');
+        const settings = document.getElementById('cookie-settings');
+        const toggle = document.getElementById('analytics-toggle');
+        let gaLoaded = false;
+
+        function loadGA() {
+          if (gaLoaded) return;
+          gaLoaded = true;
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function(){ window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          window.gtag('config', 'G-HXM22WWPKP', { anonymize_ip: true });
+          const s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP';
+          s.dataset.consentLoaded = 'true';
+          document.head.appendChild(s);
+        }
+
+        function apply(value) {
+          localStorage.setItem(consentKey, value);
+          if (value === 'granted') loadGA();
+          if (banner) banner.hidden = true;
+          if (settings) settings.hidden = true;
+          if (toggle) toggle.checked = value === 'granted';
+        }
+
+        const saved = localStorage.getItem(consentKey);
+        if (!saved) {
+          if (banner) banner.hidden = false;
+        } else if (saved === 'granted') {
+          loadGA();
+          if (toggle) toggle.checked = true;
+        }
+
+        document.getElementById('cookie-accept')?.addEventListener('click', () => apply('granted'));
+        document.getElementById('cookie-decline')?.addEventListener('click', () => apply('denied'));
+        document.getElementById('open-cookie-settings')?.addEventListener('click', () => {
+          if (toggle) toggle.checked = localStorage.getItem(consentKey) === 'granted';
+          if (settings) settings.hidden = false;
+        });
+        document.getElementById('cookie-close')?.addEventListener('click', () => { if (settings) settings.hidden = true; });
+        document.getElementById('cookie-save')?.addEventListener('click', () => apply(toggle?.checked ? 'granted' : 'denied'));
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "Khu du lịch Đại Nam — Cẩm nang tham quan",
+  "short_name": "Đại Nam",
+  "icons": [
+    {"src":"/brand/favicon-32.png","sizes":"32x32","type":"image/png"},
+    {"src":"/brand/apple-touch-icon.png","sizes":"180x180","type":"image/png"}
+  ],
+  "theme_color": "#073f35",
+  "background_color": "#fbf7ec",
+  "display": "standalone",
+  "lang": "vi"
+}
