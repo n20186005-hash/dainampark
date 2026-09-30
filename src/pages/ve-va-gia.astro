@@ -1,0 +1,121 @@
+---
+import '../styles/global.css';
+import BaseHead from '../components/BaseHead.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const siteBase = 'https://dainampark.com';
+const canonical = `${siteBase}/ve-va-gia/`;
+const ogImage = `${siteBase}/brand/apple-touch-icon.png`;
+
+const faq = [
+  { q: 'Vé vào cổng Đại Nam bao nhiêu?', a: 'Trang không công bố bảng giá cố định vì chính sách vé thay đổi theo thời điểm, từng phân khu và chương trình khuyến mãi. Năm 2026 từng có đợt miễn phí vé vào cổng trong khi các phân khu vẫn thu phí riêng. Hãy xem bảng giá tại quầy hoặc kênh chính thức khi đến.' },
+  { q: 'Vé cổng và vé trò chơi có giống nhau không?', a: 'Không nhất thiết. Đại Nam thường tách vé vào cổng khỏi vé của từng phân khu (biển, vườn thú) hoặc combo trò chơi. Nên hỏi rõ trước khi mua để chọn gói phù hợp.' },
+  { q: 'Trẻ em có vé riêng không?', a: 'Nhiều loại vé phân theo chiều cao trẻ em; quy định cụ thể thay đổi theo từng đợt. Khi đi gia đình, chuẩn bị sẵn thông tin về chiều cao để đối chiếu tại quầy.' },
+  { q: 'Có ngày miễn phí vé vào cổng không?', a: 'Đã từng có các đợt miễn/ưu đãi vé cổng theo chính sách của đơn vị vận hành. Thông tin này thay đổi, nên theo dõi trang chính thức hoặc gọi hotline trước ngày đi.' },
+  { q: 'Mua vé ở đâu thì đúng giá?', a: 'Nên mua trực tiếp tại quầy vé chính thức trong khu hoặc qua kênh được đơn vị vận hành công bố. Cẩn trọng với bên thứ ba rao bán chênh giá.' },
+];
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: `${siteBase}/` },
+    { '@type': 'ListItem', position: 2, name: 'Vé & giá', item: canonical },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+<!doctype html>
+<html lang="vi">
+  <head>
+    <BaseHead
+      lang="vi"
+      title="Vé & giá Khu du lịch Đại Nam | Cổng, phân khu & lưu ý"
+      description="Vé Khu du lịch Đại Nam: phân biệt vé cổng và vé trải nghiệm, vé trẻ em, ngày miễn phí, combo trò chơi và lưu ý mua đúng giá."
+      ogTitle="Vé & giá Đại Nam — cẩm nang tham khảo"
+      ogDescription="Cách chọn vé Đại Nam: cổng, phân khu, trẻ em và ngày ưu đãi."
+      canonical={canonical}
+      ogImage={ogImage}
+      schema={[breadcrumb, faqSchema]}
+    />
+  </head>
+  <body>
+    <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#073f35]/92 backdrop-blur-xl">
+      <div class="section-shell flex min-h-18 items-center justify-between gap-5 py-3">
+        <a href="/" class="shrink-0 rounded-lg bg-[#fffaf0] px-2 py-1"><img src="/brand/logo.svg" alt="Đại Nam Cẩm nang tham quan" class="h-10 w-auto" width="340" height="88" /></a>
+        <nav aria-label="Điều hướng" class="hidden items-center gap-5 lg:flex">
+          <a class="nav-link" href="/#kham-pha">Khám phá</a>
+          <a class="nav-link" href="/#ve">Vé</a>
+          <a class="nav-link" href="/#di-lai">Giao thông</a>
+          <a class="nav-link" href="/#faq">FAQ</a>
+        </nav>
+        <a class="nav-link" href="/en/" lang="en" hreflang="en">English</a>
+        <a class="btn-primary text-sm" href="https://maps.app.goo.gl/TX4Pg89WH76YqUMa9" target="_blank" rel="noreferrer">Mở Maps</a>
+      </div>
+    </header>
+
+    <main id="top" class="pt-28">
+      <section class="hero-image pattern-frame text-white">
+        <div class="section-shell grid min-h-[420px] items-end gap-8 pb-16 pt-12">
+          <div class="max-w-3xl">
+            <p class="kicker !text-[#f1c95f]">Vé & giá</p>
+            <h1 class="mt-4 text-5xl font-bold leading-[1.02] sm:text-6xl">Vé Đại Nam: cổng hay trải nghiệm?</h1>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-emerald-50/90">Đừng nhầm "vé vào cổng" với "vé trải nghiệm". Đại Nam thường có chính sách riêng cho cổng chính, biển nhân tạo, vườn thú và combo trò chơi — nên xác nhận trước khi mua.</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a class="btn-primary" href="tel:+842743845878">Gọi +84 274 384 5878</a>
+              <a class="btn-ghost" href="https://khudulichdainam.com.vn/" target="_blank" rel="noreferrer">Trang chính thức</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell py-24">
+        <div class="grid gap-10 lg:grid-cols-3">
+          <div class="card p-7"><p class="text-xs font-extrabold uppercase tracking-[.16em] text-[#0e6a58]">Vào cổng</p><h3 class="mt-3 text-2xl font-bold">Có thể có ưu đãi</h3><p class="mt-3 text-sm leading-6 text-slate-600">Đã từng có đợt miễn/ưu đãi vé cổng theo thời điểm; các phân khu vẫn có thể thu phí riêng.</p></div>
+          <div class="card p-7"><p class="text-xs font-extrabold uppercase tracking-[.16em] text-[#0e6a58]">Phân khu</p><h3 class="mt-3 text-2xl font-bold">Biển, vườn thú, trò chơi</h3><p class="mt-3 text-sm leading-6 text-slate-600">Mỗi khu có bảng giá riêng hoặc vé combo. Hỏi rõ trước khi mua để không mua thừa.</p></div>
+          <div class="card p-7"><p class="text-xs font-extrabold uppercase tracking-[.16em] text-[#0e6a58]">Trẻ em</p><h3 class="mt-3 text-2xl font-bold">Theo chiều cao</h3><p class="mt-3 text-sm leading-6 text-slate-600">Nhiều vé phân theo chiều cao; quy định cụ thể thay đổi, nên chuẩn bị trước khi đến quầy.</p></div>
+        </div>
+
+        <div class="mt-10 card overflow-hidden bg-[#0e6a58] p-7 text-white sm:p-9">
+          <p class="kicker !text-[#f5d36f]">Lưu ý quan trọng</p>
+          <h2 class="mt-4 text-3xl font-bold">Trang không đăng bảng giá cố định</h2>
+          <p class="mt-4 max-w-3xl text-sm leading-7 text-emerald-50/85">Giá vé, chương trình khuyến mãi và quy định có thể thay đổi theo mùa, sự kiện và từng phân khu. Để tránh thông tin cũ, hãy kiểm tra bảng giá tại quầy chính thức hoặc kênh của khu du lịch trước chuyến đi, và ưu tiên mua tại quầy được đơn vị vận hành công bố.</p>
+        </div>
+      </section>
+
+      <section id="faq" class="bg-[#f4edda] py-24">
+        <div class="section-shell grid gap-10 lg:grid-cols-[.55fr_1.45fr]">
+          <div><p class="kicker">FAQ vé & giá</p><h2 class="mt-4 text-4xl font-bold">Câu hỏi thường gặp</h2></div>
+          <div class="space-y-3">
+            {faq.map((item) => (
+              <details class="card group px-5 py-4">
+                <summary class="flex items-center justify-between gap-5 font-bold"><span>{item.q}</span><span class="faq-plus text-2xl font-light text-[#0e6a58]">+</span></summary>
+                <p class="mt-3 pr-8 text-sm leading-6 text-slate-600">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell py-16">
+        <p class="kicker">Trang liên quan</p>
+        <div class="mt-5 grid gap-4 sm:grid-cols-3">
+          <a href="/gio-mo-cua" class="card block p-6 hover:-translate-y-1"><h3 class="text-xl font-bold">Giờ mở cửa</h3><p class="mt-2 text-sm text-slate-600">Khung giờ & thời điểm nên đi.</p></a>
+          <a href="/duong-di" class="card block p-6 hover:-translate-y-1"><h3 class="text-xl font-bold">Đường đi</h3><p class="mt-2 text-sm text-slate-600">Từ TP.HCM đến Đại Nam bằng gì?</p></a>
+          <a href="/" class="card block p-6 hover:-translate-y-1"><h3 class="text-xl font-bold">Trang chủ</h3><p class="mt-2 text-sm text-slate-600">Cẩm nang tổng quan Đại Nam.</p></a>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter lang="vi" />
+  </body>
+</html>

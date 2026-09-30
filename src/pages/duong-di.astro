@@ -1,0 +1,156 @@
+---
+import '../styles/global.css';
+import BaseHead from '../components/BaseHead.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const siteBase = 'https://dainampark.com';
+const canonical = `${siteBase}/duong-di/`;
+const ogImage = `${siteBase}/brand/apple-touch-icon.png`;
+
+const faq = [
+  { q: 'Đi Khu du lịch Đại Nam từ TP.HCM như thế nào?', a: 'Hướng phổ biến là từ trung tâm TP.HCM qua khu Bình Triệu, sau đó tiếp tục theo QL13 / Đại lộ Bình Dương đến Phú An, Thuận An (Bình Dương). Thời gian thực tế phụ thuộc điểm xuất phát và lưu lượng xe, nhất là cuối tuần.' },
+  { q: 'Địa chỉ chính xác để nhập bản đồ?', a: '1765A QL13, Phú An, TP.HCM, Việt Nam. Mã vị trí Google do khách cung cấp: 2JRJ+H8. Nên nhập chính xác "Khu du lịch Đại Nam" để tránh nhầm sang cổng hoặc điểm khác.' },
+  { q: 'Có đi xe buýt được không?', a: 'Có các tuyến qua trục QL13, nhưng mạng lưới có thể điều chỉnh. Tra cứu ứng dụng giao thông địa phương vào đúng ngày đi trước khi chọn tuyến.' },
+  { q: 'Đi xe máy có tiện không?', a: 'QL13 khá thẳng và thuận tiện, nhưng nên tránh khung giờ cao điểm và chuẩn bị áo mưa/nắng theo mùa. Giữ vé gửi xe cẩn thận.' },
+  { q: 'Gửi xe ở Đại Nam có dễ không?', a: 'Khu du lịch có khu vực gửi xe phục vụ khách. Vào cuối tuần và dịp lễ nên đến sớm, làm theo hướng dẫn phân luồng tại cổng và giữ vé đến khi rời bãi.' },
+];
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: `${siteBase}/` },
+    { '@type': 'ListItem', position: 2, name: 'Đường đi', item: canonical },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+<!doctype html>
+<html lang="vi">
+  <head>
+    <BaseHead
+      lang="vi"
+      title="Đường đi Khu du lịch Đại Nam | Từ TP.HCM, xe buýt & bản đồ"
+      description="Đường đi Khu du lịch Đại Nam: từ TP.HCM theo QL13, ô tô/taxi/xe máy/xe buýt, địa chỉ chính xác, mã Plus Code và gửi xe."
+      ogTitle="Đường đi Đại Nam — cẩm nang tham khảo"
+      ogDescription="Cách đến Đại Nam từ TP.HCM: QL13, các loại phương tiện và bản đồ."
+      canonical={canonical}
+      ogImage={ogImage}
+      schema={[breadcrumb, faqSchema]}
+    />
+  </head>
+  <body>
+    <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#073f35]/92 backdrop-blur-xl">
+      <div class="section-shell flex min-h-18 items-center justify-between gap-5 py-3">
+        <a href="/" class="shrink-0 rounded-lg bg-[#fffaf0] px-2 py-1"><img src="/brand/logo.svg" alt="Đại Nam Cẩm nang tham quan" class="h-10 w-auto" width="340" height="88" /></a>
+        <nav aria-label="Điều hướng" class="hidden items-center gap-5 lg:flex">
+          <a class="nav-link" href="/#kham-pha">Khám phá</a>
+          <a class="nav-link" href="/#ve">Vé</a>
+          <a class="nav-link" href="/#di-lai">Giao thông</a>
+          <a class="nav-link" href="/#faq">FAQ</a>
+        </nav>
+        <a class="nav-link" href="/en/" lang="en" hreflang="en">English</a>
+        <a class="btn-primary text-sm" href="https://maps.app.goo.gl/TX4Pg89WH76YqUMa9" target="_blank" rel="noreferrer">Mở Maps</a>
+      </div>
+    </header>
+
+    <main id="top" class="pt-28">
+      <section class="hero-image pattern-frame text-white">
+        <div class="section-shell grid min-h-[420px] items-end gap-8 pb-16 pt-12">
+          <div class="max-w-3xl">
+            <p class="kicker !text-[#f1c95f]">Đường đi</p>
+            <h1 class="mt-4 text-5xl font-bold leading-[1.02] sm:text-6xl">Đến Đại Nam từ TP.HCM thế nào?</h1>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-emerald-50/90">Trục <b>QL13</b> là đường tiếp cận dễ nhớ nhất: từ trung tâm TP.HCM qua Bình Triệu, tiếp tục theo Đại lộ Bình Dương đến Phú An. Dưới đây là các cách đi phổ biến.</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a class="btn-primary" href="https://maps.app.goo.gl/TX4Pg89WH76YqUMa9" target="_blank" rel="noreferrer">Chỉ đường Google Maps</a>
+              <a class="btn-ghost" href="tel:+842743845878">Gọi +84 274 384 5878</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell py-24">
+        <div class="grid gap-10 lg:grid-cols-[.9fr_1.1fr]">
+          <div>
+            <h2 class="text-4xl font-bold sm:text-5xl">Từ trung tâm TP.HCM theo QL13</h2>
+            <p class="mt-5 max-w-2xl leading-7 text-slate-600">Hướng đi phổ biến là qua khu Bình Triệu rồi tiếp tục theo QL13 / Đại lộ Bình Dương. Thời gian thực tế phụ thuộc điểm xuất phát và lưu lượng xe, nhất là cuối tuần.</p>
+            <div class="mt-6 rounded-2xl bg-[#e9f2ee] p-5 text-sm leading-6 text-slate-700"><b>Địa chỉ:</b> 1765A QL13, Phú An, TP.HCM, Việt Nam · <b>Mã Plus Code:</b> 2JRJ+H8</div>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="card p-6"><span class="text-2xl">🚗</span><h3 class="mt-3 text-xl font-bold">Ô tô / taxi</h3><p class="mt-2 text-sm leading-6 text-slate-600">Tiện nhất cho gia đình; nhập chính xác "Khu du lịch Đại Nam" trên bản đồ để tránh nhầm cổng.</p></div>
+            <div class="card p-6"><span class="text-2xl">🏍️</span><h3 class="mt-3 text-xl font-bold">Xe máy</h3><p class="mt-2 text-sm leading-6 text-slate-600">QL13 khá thẳng; nên tránh khung giờ cao điểm và chuẩn bị áo mưa/nắng theo mùa.</p></div>
+            <div class="card p-6"><span class="text-2xl">🚌</span><h3 class="mt-3 text-xl font-bold">Xe buýt</h3><p class="mt-2 text-sm leading-6 text-slate-600">Mạng lưới tuyến có thể điều chỉnh. Tra cứu ứng dụng giao thông địa phương vào đúng ngày đi.</p></div>
+            <div class="card p-6"><span class="text-2xl">📍</span><h3 class="mt-3 text-xl font-bold">Plus Code</h3><p class="mt-2 text-sm leading-6 text-slate-600">2JRJ+H8 Phú An, Bình Dương — dán trực tiếp vào Google Maps để dẫn đường.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-[#0b4f42] py-20 text-white">
+        <div class="section-shell grid gap-8 md:grid-cols-[.7fr_1.3fr] md:items-center">
+          <div><p class="kicker !text-[#f4d374]">Gửi xe</p><h2 class="mt-4 text-4xl font-bold">Đến sớm để gửi xe nhẹ nhàng</h2></div>
+          <div class="grid gap-4 sm:grid-cols-3">
+            <div class="rounded-2xl bg-white/8 p-5"><b>Ô tô</b><p class="mt-2 text-sm leading-6 text-emerald-50/75">Theo phân luồng bãi xe tại cổng, nhất là ngày đông khách.</p></div>
+            <div class="rounded-2xl bg-white/8 p-5"><b>Xe máy</b><p class="mt-2 text-sm leading-6 text-emerald-50/75">Giữ vé xe cẩn thận và chụp lại vị trí dãy gửi xe.</p></div>
+            <div class="rounded-2xl bg-white/8 p-5"><b>Nhóm đông</b><p class="mt-2 text-sm leading-6 text-emerald-50/75">Thống nhất một điểm tập trung trước khi tách nhóm vào tham quan.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell py-24">
+        <div class="grid gap-8 lg:grid-cols-[.6fr_1.4fr] lg:items-center">
+          <div>
+            <p class="kicker">Bản đồ</p>
+            <h2 class="mt-4 text-4xl font-bold">1765A QL13, Phú An</h2>
+            <p class="mt-4 leading-7 text-slate-600">Bản đồ được nhúng với ngôn ngữ tiếng Việt và khu vực Việt Nam. Dùng nút "Mở Google Maps" để xem điều hướng theo vị trí xuất phát thực tế.</p>
+            <a class="btn-primary mt-6" href="https://maps.app.goo.gl/TX4Pg89WH76YqUMa9" target="_blank" rel="noreferrer">Chỉ đường trên Google Maps</a>
+          </div>
+          <div class="overflow-hidden rounded-[1.8rem] border border-emerald-900/10 shadow-2xl shadow-emerald-950/10">
+            <iframe
+              title="Bản đồ Khu du lịch Đại Nam"
+              src="https://www.google.com/maps?q=Khu%20du%20l%E1%BB%8Bch%20%C4%90%E1%BA%A1i%20Nam%2C%201765A%20QL13%2C%20Ph%C3%BA%20An%2C%20Vi%E1%BB%87t%20Nam&output=embed&hl=vi&gl=vn"
+              width="100%"
+              height="510"
+              style="border:0"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="bg-[#f4edda] py-24">
+        <div class="section-shell grid gap-10 lg:grid-cols-[.55fr_1.45fr]">
+          <div><p class="kicker">FAQ đường đi</p><h2 class="mt-4 text-4xl font-bold">Câu hỏi thường gặp</h2></div>
+          <div class="space-y-3">
+            {faq.map((item) => (
+              <details class="card group px-5 py-4">
+                <summary class="flex items-center justify-between gap-5 font-bold"><span>{item.q}</span><span class="faq-plus text-2xl font-light text-[#0e6a58]">+</span></summary>
+                <p class="mt-3 pr-8 text-sm leading-6 text-slate-600">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell py-16">
+        <p class="kicker">Trang liên quan</p>
+        <div class="mt-5 grid gap-4 sm:grid-cols-3">
+          <a href="/gio-mo-cua" class="card block p-6 hover:-translate-y-1"><h3 class="text-xl font-bold">Giờ mở cửa</h3><p class="mt-2 text-sm text-slate-600">Khung giờ & thời điểm nên đi.</p></a>
+          <a href="/ve-va-gia" class="card block p-6 hover:-translate-y-1"><h3 class="text-xl font-bold">Vé & giá</h3><p class="mt-2 text-sm text-slate-600">Phân biệt vé cổng và vé trải nghiệm.</p></a>
+          <a href="/" class="card block p-6 hover:-translate-y-1"><h3 class="text-xl font-bold">Trang chủ</h3><p class="mt-2 text-sm text-slate-600">Cẩm nang tổng quan Đại Nam.</p></a>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter lang="vi" />
+  </body>
+</html>

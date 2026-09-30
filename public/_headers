@@ -1,0 +1,12 @@
+# Bảo mật cơ bản + HSTS (áp dụng cho toàn bộ tài nguyên tĩnh)
+/*
+	Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+	X-Content-Type-Options: nosniff
+	X-Frame-Options: SAMEORIGIN
+	Referrer-Policy: strict-origin-when-cross-origin
+	Permissions-Policy: geolocation=(), microphone=(), camera=()
+	Content-Security-Policy: default-src 'self'; img-src 'self' https: data:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://www.google.com.vn; connect-src 'self' https://www.google-analytics.com
+
+# Không đánh index bản đồ nhúng của Google (tránh nội dung lặp)
+/assets/*
+	X-Robots-Tag: noindex

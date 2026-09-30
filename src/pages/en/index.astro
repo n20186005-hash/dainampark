@@ -1,0 +1,406 @@
+---
+import '../../styles/global.css';
+import BaseHead from '../../components/BaseHead.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+
+const siteBase = 'https://dainampark.com';
+const canonical = `${siteBase}/en/`;
+const ogImage = `${siteBase}/brand/apple-touch-icon.png`;
+
+const place = {
+  name: 'Khu du lịch Đại Nam (Dai Nam Culture & Entertainment Park)',
+  address: '1765A QL13, Phú An, Ho Chi Minh City, Vietnam',
+  phone: '+84 274 384 5878',
+  rating: 4.4,
+  reviewCount: 17809,
+  lat: 11.04326,
+  lng: 106.6348,
+};
+
+const photos = [
+  {
+    src: '/images/dai-nam-quang-truong.jpg',
+    alt: 'Central square of Khu du lịch Đại Nam with golden architecture and gardens',
+    caption: 'The central square — real photo taken at Dai Nam',
+    credit: 'Xuanphuocle / Wikimedia Commons / CC0 1.0',
+    page: 'https://commons.wikimedia.org/wiki/File:250624_Khu_Du_l%E1%BB%8Bch_%C4%90%E1%BA%A1i_Nam_(2).jpg'
+  },
+  {
+    src: '/images/dai-nam-bien-nhan-tao.jpg',
+    alt: 'Dai Nam artificial sea with wave pool and visitors',
+    caption: 'Dai Nam artificial sea',
+    credit: 'Liftold / Wikimedia Commons / CC BY-SA 3.0',
+    page: 'https://commons.wikimedia.org/wiki/File:Bi%E1%BB%83n_%C4%90%E1%BA%A1i_Nam.jpg'
+  },
+  {
+    src: '/images/dai-nam-cong-rong-vang.jpg',
+    alt: 'Golden dragon gate at the Dai Nam amusement area',
+    caption: 'A corner of the park with golden dragon architecture',
+    credit: 'Liftold / Wikimedia Commons / CC BY-SA 3.0',
+    page: 'https://commons.wikimedia.org/wiki/File:Dai_Nam.jpg'
+  },
+  {
+    src: '/images/dai-nam-voi.jpg',
+    alt: 'Elephant at the Dai Nam zoo',
+    caption: 'Dai Nam zoo — elephant in the reserve',
+    credit: 'Wikimedia Commons',
+    page: 'https://commons.wikimedia.org/wiki/File:Voi_t%E1%BA%A1i_B%C3%ACnh_D%C6%B0%C6%A1ng.jpg'
+  }
+];
+
+const faq = [
+  {
+    q: 'What are the opening hours of Khu du lịch Đại Nam?',
+    a: 'Commonly announced hours are around 08:00–17:00 on weekdays, extended to about 18:00 on weekends for some zones. The schedule of the Golden Temple, Stupa, sea, zoo and amusement area may differ, so it is best to check the official channel or call the hotline before your visit.'
+  },
+  {
+    q: 'Are the entrance ticket and the ride ticket the same?',
+    a: 'Not necessarily. Dai Nam usually separates the gate ticket from each zone ticket or ride combo. Promotions change over time; check the official price board at the counter or the park channel before buying.'
+  },
+  {
+    q: 'How long should I plan for a visit?',
+    a: 'About 5–8 hours is comfortable if you want to combine the culture zone, zoo and part of the amusement area. With children or if you plan to swim, a full day avoids a rushed schedule.'
+  },
+  {
+    q: 'Is it suitable for families with young children?',
+    a: 'Yes. The grounds are large, with a zoo, artificial sea and many rides. Bring a hat, water, a change of clothes for water play, and prefer a compact stroller or on-site transport when needed.'
+  },
+  {
+    q: 'Is there parking for cars and motorbikes?',
+    a: 'The park has a parking area for guests. On weekends and holidays arrive early, follow the gate traffic flow and keep your parking ticket until you leave the lot.'
+  }
+];
+
+const touristAttraction = {
+  '@context': 'https://schema.org',
+  '@type': ['TouristAttraction', 'LocalBusiness'],
+  name: place.name,
+  description: 'Visitor guide to Khu du lịch Đại Nam: culture, zoo, artificial sea, amusement rides, transport and a one-day itinerary.',
+  telephone: place.phone,
+  url: canonical,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '1765A QL13',
+    addressLocality: 'Phú An',
+    addressRegion: 'Ho Chi Minh City',
+    addressCountry: 'VN'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: place.lat,
+    longitude: place.lng
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: place.rating,
+    reviewCount: place.reviewCount,
+    bestRating: 5,
+    worstRating: 1
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:00',
+      closes: '17:00'
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Saturday', 'Sunday'],
+      opens: '08:00',
+      closes: '18:00'
+    }
+  ],
+  image: photos.slice(0, 3).map((p) => `${siteBase}${p.src}`),
+  sameAs: [
+    'https://khudulichdainam.com.vn/',
+    'https://maps.app.goo.gl/TX4Pg89WH76YqUMa9'
+  ]
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a
+    }
+  }))
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      lang="en"
+      title="Dai Nam Culture & Entertainment Park | Visitor guide, tickets & directions"
+      description="An English visitor guide to Khu du lịch Đại Nam: highlights, tickets & costs, reference hours, transport, parking, food, nearby spots and FAQ."
+      ogTitle="Khu du lịch Đại Nam — visitor guide"
+      ogDescription="Plan a day at Dai Nam: culture, zoo, artificial sea, rides, directions and costs."
+      canonical={canonical}
+      ogImage={ogImage}
+      hreflangs={[
+        { lang: 'vi', href: 'https://dainampark.com/' },
+        { lang: 'en', href: 'https://dainampark.com/en/' },
+        { lang: 'x-default', href: 'https://dainampark.com/' },
+      ]}
+      schema={[touristAttraction, faqSchema]}
+    />
+  </head>
+  <body>
+    <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#073f35]/92 backdrop-blur-xl">
+      <div class="section-shell flex min-h-18 items-center justify-between gap-5 py-3">
+        <a href="#top" aria-label="Back to top" class="shrink-0 rounded-lg bg-[#fffaf0] px-2 py-1">
+          <img src="/brand/logo.svg" alt="Đại Nam Visitor Guide" class="h-10 w-auto" width="340" height="88" />
+        </a>
+        <nav aria-label="Main navigation" class="hidden items-center gap-5 lg:flex">
+          <a class="nav-link" href="#explore">Explore</a>
+          <a class="nav-link" href="#tickets">Tickets & costs</a>
+          <a class="nav-link" href="#getting-there">Getting there</a>
+          <a class="nav-link" href="#food">Food</a>
+          <a class="nav-link" href="#nearby">Nearby</a>
+          <a class="nav-link" href="#faq">FAQ</a>
+        </nav>
+        <a class="nav-link" href="/" lang="vi" hreflang="vi">Tiếng Việt</a>
+        <a class="btn-primary text-sm" href="https://maps.app.goo.gl/TX4Pg89WH76YqUMa9" target="_blank" rel="noreferrer">Open Google Maps</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero-image pattern-frame min-h-[780px] pt-28 text-white">
+        <div class="section-shell grid min-h-[680px] items-end gap-10 pb-20 pt-16 lg:grid-cols-[1.15fr_.85fr] lg:items-center lg:pb-14">
+          <div class="max-w-3xl">
+            <p class="mb-5 inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur">Culture · nature · entertainment · sport</p>
+            <h1 class="text-5xl font-bold leading-[.98] sm:text-6xl lg:text-8xl">A wide-open day at <span class="text-[#f2cc61]">Dai Nam</span></h1>
+            <p class="mt-7 max-w-2xl text-lg leading-8 text-emerald-50/90">More than an amusement park. Dai Nam is a large complex where cultural architecture, the Golden Temple, a zoo, an artificial sea and speed experiences all sit within one journey.</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a class="btn-primary" href="#itinerary">See a sample itinerary</a>
+              <a class="btn-ghost" href="#map">View the map</a>
+            </div>
+            <div class="mt-10 flex flex-wrap gap-x-8 gap-y-4 text-sm text-emerald-50/80">
+              <span><b class="text-white">★ {place.rating}</b> / 5 · {place.reviewCount.toLocaleString('en-US')} reviews</span>
+              <span><b class="text-white">1765A QL13</b> · Phú An</span>
+              <span><b class="text-white">{place.phone}</b></span>
+            </div>
+          </div>
+
+          <aside class="card border-white/15 bg-[#fffaf0]/95 p-6 text-[#17352f] lg:ml-auto lg:max-w-md">
+            <p class="kicker">Quick tip</p>
+            <h2 class="mt-3 text-3xl font-bold">A full day feels most comfortable</h2>
+            <div class="mt-5 grid gap-4 text-sm">
+              <div class="rounded-2xl bg-[#e7f2ed] p-4"><b>Morning:</b> prioritise the culture zone, Golden Temple and photos while the light is soft.</div>
+              <div class="rounded-2xl bg-[#fbefc8] p-4"><b>Midday:</b> eat, rest, use on-site transport if needed.</div>
+              <div class="rounded-2xl bg-[#e6f3f5] p-4"><b>Afternoon:</b> zoo, rides or the artificial sea, depending on your group.</div>
+            </div>
+            <p class="mt-5 text-xs leading-5 text-slate-600">Opening hours and per-zone schedules may change. Check the official channel or hotline before departure.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="explore" class="section-shell py-24">
+        <div class="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+          <div>
+            <p class="kicker">The identity of Dai Nam</p>
+            <h2 class="mt-4 text-4xl font-bold leading-tight sm:text-5xl">From golden Văn Hiến tones to the blue water of the artificial sea</h2>
+          </div>
+          <div class="prose-vn grid gap-4 sm:grid-cols-2">
+            <p>What makes Dai Nam special is the contrast: traditional architectural language, a wide landscape axis and a signature gold sit right next to modern entertainment zones.</p>
+            <p>The grounds are very large, so the experience is better when you pick 2–3 main goals instead of trying to rush through every zone.</p>
+          </div>
+        </div>
+
+        <div class="mt-12 grid auto-rows-[290px] gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {photos.map((photo, index) => (
+            <figure class={`photo-card ${index === 0 ? 'lg:col-span-2 lg:row-span-2' : index === 1 ? 'lg:col-span-2' : ''}`}>
+              <img src={photo.src} alt={photo.alt} loading={index === 0 ? 'eager' : 'lazy'} referrerpolicy="no-referrer" />
+              <figcaption>
+                {photo.caption}
+                <span class="mt-1 block text-[0.68rem] opacity-80">{photo.credit}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+        <p class="mt-4 text-xs leading-5 text-slate-500">Real photos from Wikimedia Commons. Author credits & licences at the bottom of the page.</p>
+      </section>
+
+      <section class="bg-[#073f35] py-24 text-white">
+        <div class="section-shell">
+          <p class="kicker !text-[#f1c95f]">4 main experiences</p>
+          <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <article class="rounded-[1.7rem] border border-white/10 bg-white/5 p-6">
+              <span class="text-3xl">🏯</span><h3 class="mt-5 text-2xl font-bold">Culture & spirituality</h3><p class="mt-3 text-sm leading-6 text-emerald-50/75">Golden Temple, Stupa, the square axis and details that recall traditional Vietnamese art.</p>
+            </article>
+            <article class="rounded-[1.7rem] border border-white/10 bg-white/5 p-6">
+              <span class="text-3xl">🐘</span><h3 class="mt-5 text-2xl font-bold">Zoo</h3><p class="mt-3 text-sm leading-6 text-emerald-50/75">A favourite for families, with viewing space for several large animals.</p>
+            </article>
+            <article class="rounded-[1.7rem] border border-white/10 bg-white/5 p-6">
+              <span class="text-3xl">🌊</span><h3 class="mt-5 text-2xl font-bold">Artificial sea</h3><p class="mt-3 text-sm leading-6 text-emerald-50/75">A large wave pool, good for a separate afternoon if your group wants water play.</p>
+            </article>
+            <article class="rounded-[1.7rem] border border-white/10 bg-white/5 p-6">
+              <span class="text-3xl">🎢</span><h3 class="mt-5 text-2xl font-bold">Rides & sport</h3><p class="mt-3 text-sm leading-6 text-emerald-50/75">From family rides to speed experiences; operating hours depend on each item.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="tickets" class="section-shell py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div class="card p-7 sm:p-9">
+            <p class="kicker">Tickets / cost</p>
+            <h2 class="mt-4 text-4xl font-bold">Don't confuse the "gate ticket" with the "experience ticket"</h2>
+            <p class="mt-5 leading-7 text-slate-600">Dai Nam often has separate policies for the main gate, the artificial sea, the zoo and ride combos. In 2026 there were free-gate periods while zones could still charge separately.</p>
+            <div class="mt-7 space-y-3">
+              <div class="flex gap-4 rounded-2xl bg-[#f6ecd0] p-4"><b class="min-w-28">Gate</b><span class="text-sm leading-6">Free or promotional programmes may apply at times.</span></div>
+              <div class="flex gap-4 rounded-2xl bg-[#e3f1ec] p-4"><b class="min-w-28">Zones</b><span class="text-sm leading-6">Sea, zoo and rides have their own price board or combo ticket.</span></div>
+              <div class="flex gap-4 rounded-2xl bg-[#e7edf5] p-4"><b class="min-w-28">Children</b><span class="text-sm leading-6">Many tickets are by height; check the rules at the time of purchase.</span></div>
+            </div>
+            <p class="mt-6 text-xs leading-5 text-slate-500">We avoid publishing a fixed price table to prevent stale information. When planning, check the official site or call the hotline.</p>
+            <a class="btn-ghost mt-5 !border-[#0e6a58] !text-[#0e6a58]" href="/ve-va-gia">Chi tiết vé & giá (Tiếng Việt) →</a>
+          </div>
+
+          <div id="thoi-diem" class="card overflow-hidden bg-[#0e6a58] text-white">
+            <div class="p-7 sm:p-9">
+              <p class="kicker !text-[#f5d36f]">Timing & duration</p>
+              <h2 class="mt-4 text-4xl font-bold">Go early, rest at midday, play into the afternoon</h2>
+              <div class="mt-7 grid gap-4 sm:grid-cols-2">
+                <div class="rounded-2xl bg-white/10 p-5"><p class="text-sm text-emerald-100">Comfortable window</p><p class="mt-1 text-xl font-bold">08:00–11:00</p><p class="mt-2 text-sm leading-6 text-emerald-50/80">Walking, photos, visiting the architecture.</p></div>
+                <div class="rounded-2xl bg-white/10 p-5"><p class="text-sm text-emerald-100">Recommended duration</p><p class="mt-1 text-xl font-bold">5–8 hours</p><p class="mt-2 text-sm leading-6 text-emerald-50/80">Enough for 2–3 zones without rushing.</p></div>
+              </div>
+              <p class="mt-6 text-sm leading-6 text-emerald-50/80">Weekends and holidays are usually busier. If you prioritise the sea or rides, arriving early shortens queues and avoids the harshest sun.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="itinerary" class="border-y border-emerald-900/10 bg-[#f4edda] py-24">
+        <div class="section-shell grid gap-12 lg:grid-cols-[.72fr_1.28fr]">
+          <div>
+            <p class="kicker">One-day itinerary</p>
+            <h2 class="mt-4 text-4xl font-bold">A sensible rhythm for families and groups</h2>
+            <p class="mt-5 leading-7 text-slate-600">The layout below prioritises outdoor walking in the morning, a midday rest and a higher-experience activity in the afternoon.</p>
+          </div>
+          <div class="space-y-7">
+            <div class="timeline-step"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">MORNING</p><h3 class="mt-1 text-2xl font-bold">Square → Văn Hiến zone → Golden Temple</h3><p class="mt-2 text-sm leading-6 text-slate-600">Go early for good light and easy photos; check the separate opening time of the spiritual zone.</p></div>
+            <div class="timeline-step"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">MIDDAY</p><h3 class="mt-1 text-2xl font-bold">Lunch & rest</h3><p class="mt-2 text-sm leading-6 text-slate-600">The grounds are large, so avoid constant movement during peak sun.</p></div>
+            <div class="timeline-step"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">EARLY AFTERNOON</p><h3 class="mt-1 text-2xl font-bold">Zoo or amusement area</h3><p class="mt-2 text-sm leading-6 text-slate-600">Pick one focus to have time to experience rather than just pass through.</p></div>
+            <div class="timeline-step"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">LATE AFTERNOON</p><h3 class="mt-1 text-2xl font-bold">Artificial sea / return to a check-in spot</h3><p class="mt-2 text-sm leading-6 text-slate-600">If swimming, allow enough time to change and reach the gate before that zone closes.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="getting-there" class="section-shell py-24">
+        <p class="kicker">Transport details</p>
+        <div class="mt-4 grid gap-10 lg:grid-cols-[.9fr_1.1fr]">
+          <div>
+            <h2 class="text-4xl font-bold sm:text-5xl">National Route 13 (QL13) is the easiest approach</h2>
+            <p class="mt-5 max-w-2xl leading-7 text-slate-600">From central Ho Chi Minh City, the common route is via Bình Triệu then along QL13 / Đại lộ Bình Dương. Actual time depends on your starting point and traffic, especially on weekends.</p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="card p-6"><span class="text-2xl">🚗</span><h3 class="mt-3 text-xl font-bold">Car / taxi</h3><p class="mt-2 text-sm leading-6 text-slate-600">Most convenient for families; enter "Khu du lịch Đại Nam" exactly on the map to avoid the wrong gate.</p></div>
+            <div class="card p-6"><span class="text-2xl">🏍️</span><h3 class="mt-3 text-xl font-bold">Motorbike</h3><p class="mt-2 text-sm leading-6 text-slate-600">QL13 is fairly straight; avoid rush hour and prepare rain/sun gear by season.</p></div>
+            <div class="card p-6"><span class="text-2xl">🚌</span><h3 class="mt-3 text-xl font-bold">Bus</h3><p class="mt-2 text-sm leading-6 text-slate-600">Routes can change. Check a local transit app on the exact day before choosing a line.</p></div>
+            <div class="card p-6"><span class="text-2xl">📍</span><h3 class="mt-3 text-xl font-bold">Address</h3><p class="mt-2 text-sm leading-6 text-slate-600">1765A QL13, Phú An, Ho Chi Minh City, Vietnam · Google Plus Code provided by visitors: 2JRJ+H8.</p></div>
+          </div>
+        </div>
+        <a class="btn-ghost mt-6 !border-[#0e6a58] !text-[#0e6a58]" href="/duong-di">Đường đi chi tiết (Tiếng Việt) →</a>
+      </section>
+
+      <section id="dau-xe" class="bg-[#0b4f42] py-20 text-white">
+        <div class="section-shell grid gap-8 md:grid-cols-[.7fr_1.3fr] md:items-center">
+          <div><p class="kicker !text-[#f4d374]">Parking information</p><h2 class="mt-4 text-4xl font-bold">Arrive early for easier parking</h2></div>
+          <div class="grid gap-4 sm:grid-cols-3">
+            <div class="rounded-2xl bg-white/8 p-5"><b>Car</b><p class="mt-2 text-sm leading-6 text-emerald-50/75">Follow the gate lot flow, especially on busy days.</p></div>
+            <div class="rounded-2xl bg-white/8 p-5"><b>Motorbike</b><p class="mt-2 text-sm leading-6 text-emerald-50/75">Keep your ticket safe and photograph the row where you parked.</p></div>
+            <div class="rounded-2xl bg-white/8 p-5"><b>Large groups</b><p class="mt-2 text-sm leading-6 text-emerald-50/75">Agree on a meeting point before splitting up to explore.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="food" class="section-shell py-24">
+        <div class="grid gap-10 lg:grid-cols-[.65fr_1.35fr]">
+          <div>
+            <p class="kicker">Food around the park</p>
+            <h2 class="mt-4 text-4xl font-bold">Eat inside for convenience, or along QL13 for more choice</h2>
+            <p class="mt-5 leading-7 text-slate-600">Local guides note many restaurants and cafés within a few km of Dai Nam. Options change quickly, so prefer places with recent reviews and suitable parking.</p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-3">
+            <article class="card p-6"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">INSIDE</p><h3 class="mt-3 text-xl font-bold">Convenient for families</h3><p class="mt-2 text-sm leading-6 text-slate-600">Less travel time, good if the schedule already packs zoo + sea + rides.</p></article>
+            <article class="card p-6"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">ALONG QL13</p><h3 class="mt-3 text-xl font-bold">Vietnamese & family eateries</h3><p class="mt-2 text-sm leading-6 text-slate-600">Rice, hotpot, countryside dishes and garden restaurants along the main axis.</p></article>
+            <article class="card p-6"><p class="text-xs font-extrabold tracking-widest text-[#0e6a58]">CAFÉ</p><h3 class="mt-3 text-xl font-bold">Rest before heading back</h3><p class="mt-2 text-sm leading-6 text-slate-600">Old Thủ Dầu Một has garden cafés, good for a stop before the return trip.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="nearby" class="border-y border-emerald-900/10 bg-white py-24">
+        <div class="section-shell">
+          <p class="kicker">Nearby attractions</p>
+          <h2 class="mt-4 max-w-3xl text-4xl font-bold sm:text-5xl">If you have time, pair Dai Nam with another slice of old Bình Dương</h2>
+          <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <article class="card p-6"><p class="text-3xl">🎨</p><h3 class="mt-4 text-xl font-bold">Tương Bình Hiệp lacquer village</h3><p class="mt-2 text-sm leading-6 text-slate-600">Traditional craft space, good for culture lovers.</p></article>
+            <article class="card p-6"><p class="text-3xl">🏙️</p><h3 class="mt-4 text-xl font-bold">New City Park</h3><p class="mt-2 text-sm leading-6 text-slate-600">Open urban space, easy to combine if heading to the admin centre.</p></article>
+            <article class="card p-6"><p class="text-3xl">🎋</p><h3 class="mt-4 text-xl font-bold">Phú An bamboo village</h3><p class="mt-2 text-sm leading-6 text-slate-600">Green spot about plants, research and light outdoor experience.</p></article>
+            <article class="card p-6"><p class="text-3xl">🏠</p><h3 class="mt-4 text-xl font-bold">Nguyễn Tri Quang old house</h3><p class="mt-2 text-sm leading-6 text-slate-600">A heritage choice that contrasts nicely with Dai Nam's scale.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="map" class="section-shell py-24">
+        <div class="grid gap-8 lg:grid-cols-[.6fr_1.4fr] lg:items-center">
+          <div>
+            <p class="kicker">Map</p>
+            <h2 class="mt-4 text-4xl font-bold">1765A QL13, Phú An</h2>
+            <p class="mt-4 leading-7 text-slate-600">The map is embedded in Vietnamese with the Vietnam region. Use the "Open Google Maps" button for navigation from your real starting point.</p>
+            <a class="btn-primary mt-6" href="https://maps.app.goo.gl/TX4Pg89WH76YqUMa9" target="_blank" rel="noreferrer">Directions on Google Maps</a>
+          </div>
+          <div class="overflow-hidden rounded-[1.8rem] border border-emerald-900/10 shadow-2xl shadow-emerald-950/10">
+            <iframe
+              title="Map of Khu du lịch Đại Nam"
+              src="https://www.google.com/maps?q=Khu%20du%20l%E1%BB%8Bch%20%C4%90%E1%BA%A1i%20Nam%2C%201765A%20QL13%2C%20Ph%C3%BA%20An%2C%20Vi%E1%BB%87t%20Nam&output=embed&hl=en&gl=vn"
+              width="100%"
+              height="510"
+              style="border:0"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="bg-[#f4edda] py-24">
+        <div class="section-shell grid gap-10 lg:grid-cols-[.55fr_1.45fr]">
+          <div><p class="kicker">FAQ</p><h2 class="mt-4 text-4xl font-bold">Common questions before you go</h2><p class="mt-4 text-sm leading-6 text-slate-600">Actual operations may change by season, zone and events.</p></div>
+          <div class="space-y-3">
+            {faq.map((item) => (
+              <details class="card group px-5 py-4">
+                <summary class="flex items-center justify-between gap-5 font-bold"><span>{item.q}</span><span class="faq-plus text-2xl font-light text-[#0e6a58]">+</span></summary>
+                <p class="mt-3 pr-8 text-sm leading-6 text-slate-600">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell py-20">
+        <div class="rounded-[2rem] bg-[#a53b31] p-8 text-white sm:p-10 lg:flex lg:items-center lg:justify-between">
+          <div><p class="text-sm font-bold uppercase tracking-[.18em] text-orange-100">Before departure</p><h2 class="mt-3 text-3xl font-bold">Check zone schedules, tickets and the day's weather</h2></div>
+          <div class="mt-6 flex flex-wrap gap-3 lg:mt-0"><a class="btn-primary" href="tel:+842743845878">Call +84 274 384 5878</a><a class="btn-ghost" href="https://khudulichdainam.com.vn/" target="_blank" rel="noreferrer">Official site</a></div>
+        </div>
+      </section>
+
+      <section class="section-shell pb-16">
+        <details class="rounded-2xl border border-emerald-900/10 bg-white/60 px-5 py-4 text-xs leading-5 text-slate-500">
+          <summary class="font-bold text-slate-700">Photo credits & references</summary>
+          <div class="mt-4 grid gap-2">
+            {photos.map((photo) => <p><a class="underline" href={photo.page} target="_blank" rel="noreferrer">{photo.caption}</a> — {photo.credit}.</p>)}
+            <p>Reference sources: the official website of Khu du lịch Đại Nam, Bình Dương tourism portal, Google Maps and Wikimedia Commons image descriptions.</p>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <SiteFooter lang="en" />
+  </body>
+</html>

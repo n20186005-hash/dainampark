@@ -1,0 +1,128 @@
+---
+interface Props {
+  lang: 'vi' | 'en';
+}
+const { lang } = Astro.props;
+const isVi = lang === 'vi';
+
+const t = {
+  disclaimer: isVi
+    ? 'Trang cẩm nang độc lập, không phải website chính thức và không đại diện cho Khu du lịch Đại Nam. Hãy xác nhận giá vé, lịch hoạt động và quy định trực tiếp với đơn vị vận hành trước chuyến đi.'
+    : 'An independent visitor guide, not the official website and not affiliated with Khu du lịch Đại Nam. Please confirm ticket prices, opening hours and rules directly with the operator before your visit.',
+  privacy: isVi ? 'Quyền riêng tư' : 'Privacy',
+  terms: isVi ? 'Điều khoản' : 'Terms',
+  cookieSettings: isVi ? 'Cài đặt cookie' : 'Cookie settings',
+  langSwitch: isVi ? 'English' : 'Tiếng Việt',
+  langHref: isVi ? '/en/' : '/',
+  trusted: isVi ? 'Nguồn tham khảo chính thức' : 'Official references',
+  officialLabel: isVi ? 'Trang chủ Khu du lịch Đại Nam' : 'Khu du lịch Đại Nam (official)',
+  tourismLabel: isVi ? 'Tổng cục Du lịch Việt Nam' : 'Vietnam National Authority of Tourism',
+  provinceLabel: isVi ? 'Cổng thông tin Bình Dương' : 'Binh Duong Province portal',
+  cookieTitle: isVi ? 'Quyền riêng tư & đo lường' : 'Privacy & measurement',
+  cookieDesc: isVi
+    ? 'Trang chỉ tải Google Analytics 4 sau khi bạn đồng ý cookie đo lường. Cookie thiết yếu không dùng cho quảng cáo.'
+    : 'The site only loads Google Analytics 4 after you accept measurement cookies. Essential cookies are not used for advertising.',
+  accept: isVi ? 'Đồng ý' : 'Accept',
+  decline: isVi ? 'Từ chối' : 'Decline',
+  cookiePanelTitle: isVi ? 'Tùy chọn đo lường' : 'Measurement options',
+  cookiePanelDesc: isVi
+    ? 'Giúp hiểu cách người dùng tương tác với trang. Chỉ bật khi bạn đồng ý.'
+    : 'Helps understand how users interact with the page. Enabled only with your consent.',
+  save: isVi ? 'Lưu lựa chọn' : 'Save preferences',
+  cookieSettingsTitle: isVi ? 'Cài đặt cookie' : 'Cookie settings',
+  photoCreditTitle: isVi ? 'Ghi công ảnh & nguồn' : 'Photo credits & sources',
+};
+
+const official = [
+  { label: t.officialLabel, href: 'https://khudulichdainam.com.vn/' },
+  { label: t.tourismLabel, href: 'https://vietnamtourism.gov.vn/' },
+  { label: t.provinceLabel, href: 'https://binhduong.gov.vn/' },
+];
+---
+<footer class="border-t border-white/10 bg-[#052f28] py-10 text-emerald-50/80">
+  <div class="section-shell flex flex-col gap-6">
+    <div class="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+      <img src="/brand/logo.svg" alt="Đại Nam Cẩm nang tham quan" class="h-10 w-auto rounded-md bg-[#fffaf0] px-2 py-1" width="340" height="88" />
+      <p class="max-w-2xl text-xs leading-5">{t.disclaimer}</p>
+      <div class="flex flex-wrap gap-4 text-xs font-bold">
+        <a class="underline underline-offset-4" href={isVi ? '/privacy' : '/en/privacy'}>{t.privacy}</a>
+        <a class="underline underline-offset-4" href={isVi ? '/terms' : '/en/terms'}>{t.terms}</a>
+        <button id="open-cookie-settings" class="text-left underline underline-offset-4">{t.cookieSettings}</button>
+        <a class="underline underline-offset-4" href={t.langHref}>{t.langSwitch}</a>
+      </div>
+    </div>
+    <div class="border-t border-white/10 pt-5">
+      <p class="mb-2 text-[0.7rem] font-extrabold uppercase tracking-[.16em] text-[#f1c95f]">{t.trusted}</p>
+      <ul class="flex flex-wrap gap-x-5 gap-y-1 text-xs">
+        {official.map((o) => (
+          <li><a class="underline underline-offset-4 hover:text-[#ffd66d]" href={o.href} target="_blank" rel="noreferrer noopener">{o.label}</a></li>
+        ))}
+      </ul>
+    </div>
+    <p class="text-[0.68rem] opacity-70">© {new Date().getFullYear()} Đại Nam — Cẩm nang tham quan · dainampark.com</p>
+  </div>
+</footer>
+
+<div id="cookie-banner" class="cookie-panel fixed inset-x-3 bottom-3 z-[70] mx-auto max-w-3xl rounded-2xl border border-emerald-900/15 bg-[#fffdf7] p-5 shadow-2xl" hidden>
+  <div class="sm:flex sm:items-center sm:justify-between sm:gap-6">
+    <div><p class="font-bold">{t.cookieTitle}</p><p class="mt-1 text-sm leading-5 text-slate-600">{t.cookieDesc}</p></div>
+    <div class="mt-4 flex shrink-0 gap-2 sm:mt-0"><button id="cookie-decline" class="rounded-full border border-slate-300 px-4 py-2 text-sm font-bold">{t.decline}</button><button id="cookie-accept" class="rounded-full bg-[#0e6a58] px-4 py-2 text-sm font-bold text-white">{t.accept}</button></div>
+  </div>
+</div>
+
+<div id="cookie-settings" class="cookie-panel fixed inset-0 z-[80] grid place-items-center bg-black/45 p-4" hidden>
+  <div class="w-full max-w-lg rounded-[1.6rem] bg-[#fffdf7] p-6 shadow-2xl">
+    <div class="flex items-start justify-between gap-5"><div><p class="kicker">Cookie</p><h2 class="mt-2 text-3xl font-bold">{t.cookiePanelTitle}</h2></div><button id="cookie-close" class="text-2xl" aria-label="×">×</button></div>
+    <div class="mt-6 flex items-center justify-between gap-5 rounded-2xl bg-[#e9f2ee] p-4"><div><b>Google Analytics 4</b><p class="mt-1 text-xs leading-5 text-slate-600">{t.cookiePanelDesc}</p></div><input id="analytics-toggle" type="checkbox" class="h-5 w-5 accent-[#0e6a58]" /></div>
+    <button id="cookie-save" class="mt-5 w-full rounded-full bg-[#0e6a58] px-4 py-3 font-bold text-white">{t.save}</button>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const consentKey = 'daiNamAnalyticsConsent';
+    const banner = document.getElementById('cookie-banner');
+    const settings = document.getElementById('cookie-settings');
+    const toggle = document.getElementById('analytics-toggle');
+    let gaLoaded = false;
+
+    function loadGA() {
+      if (gaLoaded) return;
+      gaLoaded = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){ window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-HXM22WWPKP', { anonymize_ip: true });
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP';
+      s.dataset.consentLoaded = 'true';
+      document.head.appendChild(s);
+    }
+
+    function apply(value) {
+      localStorage.setItem(consentKey, value);
+      if (value === 'granted') loadGA();
+      if (banner) banner.hidden = true;
+      if (settings) settings.hidden = true;
+      if (toggle) toggle.checked = value === 'granted';
+    }
+
+    const saved = localStorage.getItem(consentKey);
+    if (!saved) {
+      if (banner) banner.hidden = false;
+    } else if (saved === 'granted') {
+      loadGA();
+      if (toggle) toggle.checked = true;
+    }
+
+    document.getElementById('cookie-accept')?.addEventListener('click', () => apply('granted'));
+    document.getElementById('cookie-decline')?.addEventListener('click', () => apply('denied'));
+    document.getElementById('open-cookie-settings')?.addEventListener('click', () => {
+      if (toggle) toggle.checked = localStorage.getItem(consentKey) === 'granted';
+      if (settings) settings.hidden = false;
+    });
+    document.getElementById('cookie-close')?.addEventListener('click', () => { if (settings) settings.hidden = true; });
+    document.getElementById('cookie-save')?.addEventListener('click', () => apply(toggle?.checked ? 'granted' : 'denied'));
+  })();
+</script>

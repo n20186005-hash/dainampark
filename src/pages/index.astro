@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import BaseHead from '../components/BaseHead.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 
 const siteBase = Astro.site ? Astro.site.toString().replace(/\/$/, '') : '';
 const canonical = siteBase ? new URL(Astro.url.pathname, `${siteBase}/`).toString() : undefined;
@@ -10,7 +12,7 @@ const place = {
   address: '1765A QL13, Phú An, Thành phố Hồ Chí Minh, Việt Nam',
   phone: '+84 274 384 5878',
   rating: 4.4,
-  reviewCount: 17761,
+  reviewCount: 17809,
   lat: 11.04326,
   lng: 106.6348,
 };
@@ -132,25 +134,21 @@ const faqSchema = {
 <!doctype html>
 <html lang="vi">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#073f35" />
-    <title>Khu du lịch Đại Nam | Cẩm nang tham quan, vé & đường đi</title>
-    <meta name="description" content="Cẩm nang tham quan Khu du lịch Đại Nam bằng tiếng Việt: điểm nổi bật, vé/chi phí, giờ tham khảo, giao thông, đậu xe, ăn uống, điểm gần đó và FAQ." />
-    {canonical && <link rel="canonical" href={canonical} />}
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="vi_VN" />
-    <meta property="og:title" content="Khu du lịch Đại Nam — cẩm nang tham quan" />
-    <meta property="og:description" content="Lên kế hoạch một ngày ở Đại Nam: văn hóa, vườn thú, biển nhân tạo, vui chơi, đường đi và chi phí." />
-    {canonical && <meta property="og:url" content={canonical} />}
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/brand/favicon-32.png" sizes="32x32" type="image/png" />
-    <link rel="icon" href="/brand/favicon-16.png" sizes="16x16" type="image/png" />
-    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" sizes="180x180" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <script type="application/ld+json" set:html={JSON.stringify(touristAttraction)}></script>
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+    <BaseHead
+      lang="vi"
+      title="Khu du lịch Đại Nam | Cẩm nang tham quan, vé & đường đi"
+      description="Cẩm nang tham quan Khu du lịch Đại Nam bằng tiếng Việt: điểm nổi bật, vé/chi phí, giờ tham khảo, giao thông, đậu xe, ăn uống, điểm gần đó và FAQ."
+      ogTitle="Khu du lịch Đại Nam — cẩm nang tham quan"
+      ogDescription="Lên kế hoạch một ngày ở Đại Nam: văn hóa, vườn thú, biển nhân tạo, vui chơi, đường đi và chi phí."
+      canonical={canonical}
+      ogImage={ogImage}
+      hreflangs={[
+        { lang: 'vi', href: 'https://dainampark.com/' },
+        { lang: 'en', href: 'https://dainampark.com/en/' },
+        { lang: 'x-default', href: 'https://dainampark.com/' },
+      ]}
+      schema={[touristAttraction, faqSchema]}
+    />
   </head>
   <body>
     <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#073f35]/92 backdrop-blur-xl">
@@ -166,6 +164,7 @@ const faqSchema = {
           <a class="nav-link" href="#gan-day">Gần đây</a>
           <a class="nav-link" href="#faq">FAQ</a>
         </nav>
+        <a class="nav-link" href="/en/" lang="en" hreflang="en">English</a>
         <a class="btn-primary text-sm" href="https://maps.app.goo.gl/TX4Pg89WH76YqUMa9" target="_blank" rel="noreferrer">Mở Google Maps</a>
       </div>
     </header>
@@ -368,6 +367,30 @@ const faqSchema = {
         </div>
       </section>
 
+      <section class="border-y border-emerald-900/10 bg-white py-24">
+        <div class="section-shell">
+          <p class="kicker">Trang chi tiết</p>
+          <h2 class="mt-4 max-w-3xl text-4xl font-bold sm:text-5xl">Đi sâu vào từng chủ đề trước khi đi</h2>
+          <div class="mt-10 grid gap-5 md:grid-cols-3">
+            <a href="/gio-mo-cua" class="card block p-6 transition hover:-translate-y-1">
+              <p class="text-xs font-extrabold uppercase tracking-[.16em] text-[#0e6a58]">Giờ mở cửa</p>
+              <h3 class="mt-3 text-xl font-bold">Khung giờ từng phân khu & lịch tham khảo</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-600">Buổi sáng, trưa và cuối tuần — khi nào nên đến để tránh đông.</p>
+            </a>
+            <a href="/ve-va-gia" class="card block p-6 transition hover:-translate-y-1">
+              <p class="text-xs font-extrabold uppercase tracking-[.16em] text-[#0e6a58]">Vé & giá</p>
+              <h3 class="mt-3 text-xl font-bold">Phân biệt vé cổng và vé trải nghiệm</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-600">Cách chọn combo và lưu ý vé trẻ em, ngày miễn phí.</p>
+            </a>
+            <a href="/duong-di" class="card block p-6 transition hover:-translate-y-1">
+              <p class="text-xs font-extrabold uppercase tracking-[.16em] text-[#0e6a58]">Đường đi</p>
+              <h3 class="mt-3 text-xl font-bold">Từ TP.HCM đến Đại Nam bằng gì?</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-600">Ô tô, xe máy, xe buýt và địa chỉ chính xác để nhập bản đồ.</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section id="faq" class="bg-[#f4edda] py-24">
         <div class="section-shell grid gap-10 lg:grid-cols-[.55fr_1.45fr]">
           <div><p class="kicker">FAQ</p><h2 class="mt-4 text-4xl font-bold">Những câu hỏi thường gặp trước khi đi</h2><p class="mt-4 text-sm leading-6 text-slate-600">Thông tin hoạt động thực tế có thể thay đổi theo mùa, phân khu và sự kiện.</p></div>
@@ -400,76 +423,8 @@ const faqSchema = {
       </section>
     </main>
 
-    <footer class="border-t border-white/10 bg-[#052f28] py-10 text-emerald-50/80">
-      <div class="section-shell flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-        <img src="/brand/logo.svg" alt="Đại Nam Cẩm nang tham quan" class="h-10 w-auto rounded-md bg-[#fffaf0] px-2 py-1" width="340" height="88" />
-        <p class="max-w-2xl text-xs leading-5">Trang cẩm nang độc lập, không phải website chính thức và không đại diện cho Khu du lịch Đại Nam. Hãy xác nhận giá vé, lịch hoạt động và quy định trực tiếp với đơn vị vận hành trước chuyến đi.</p>
-        <div class="flex flex-wrap gap-4 text-xs font-bold"><a class="underline underline-offset-4" href="/privacy">Quyền riêng tư</a><a class="underline underline-offset-4" href="/terms">Điều khoản</a><button id="open-cookie-settings" class="text-left underline underline-offset-4 md:text-right">Cài đặt cookie</button></div>
-      </div>
-    </footer>
-
-    <div id="cookie-banner" class="cookie-panel fixed inset-x-3 bottom-3 z-[70] mx-auto max-w-3xl rounded-2xl border border-emerald-900/15 bg-[#fffdf7] p-5 shadow-2xl" hidden>
-      <div class="sm:flex sm:items-center sm:justify-between sm:gap-6">
-        <div><p class="font-bold">Quyền riêng tư & đo lường</p><p class="mt-1 text-sm leading-5 text-slate-600">Trang chỉ tải Google Analytics 4 sau khi bạn đồng ý cookie đo lường. Cookie thiết yếu không dùng cho quảng cáo.</p></div>
-        <div class="mt-4 flex shrink-0 gap-2 sm:mt-0"><button id="cookie-decline" class="rounded-full border border-slate-300 px-4 py-2 text-sm font-bold">Từ chối</button><button id="cookie-accept" class="rounded-full bg-[#0e6a58] px-4 py-2 text-sm font-bold text-white">Đồng ý</button></div>
-      </div>
-    </div>
-
-    <div id="cookie-settings" class="cookie-panel fixed inset-0 z-[80] grid place-items-center bg-black/45 p-4" hidden>
-      <div class="w-full max-w-lg rounded-[1.6rem] bg-[#fffdf7] p-6 shadow-2xl">
-        <div class="flex items-start justify-between gap-5"><div><p class="kicker">Cookie</p><h2 class="mt-2 text-3xl font-bold">Tùy chọn đo lường</h2></div><button id="cookie-close" class="text-2xl" aria-label="Đóng">×</button></div>
-        <div class="mt-6 flex items-center justify-between gap-5 rounded-2xl bg-[#e9f2ee] p-4"><div><b>Google Analytics 4</b><p class="mt-1 text-xs leading-5 text-slate-600">Giúp hiểu cách người dùng tương tác với trang. Chỉ bật khi bạn đồng ý.</p></div><input id="analytics-toggle" type="checkbox" class="h-5 w-5 accent-[#0e6a58]" /></div>
-        <button id="cookie-save" class="mt-5 w-full rounded-full bg-[#0e6a58] px-4 py-3 font-bold text-white">Lưu lựa chọn</button>
-      </div>
-    </div>
-
-    <script is:inline>
-      (() => {
-        const consentKey = 'daiNamAnalyticsConsent';
-        const banner = document.getElementById('cookie-banner');
-        const settings = document.getElementById('cookie-settings');
-        const toggle = document.getElementById('analytics-toggle');
-        let gaLoaded = false;
-
-        function loadGA() {
-          if (gaLoaded) return;
-          gaLoaded = true;
-          window.dataLayer = window.dataLayer || [];
-          window.gtag = function(){ window.dataLayer.push(arguments); };
-          window.gtag('js', new Date());
-          window.gtag('config', 'G-HXM22WWPKP', { anonymize_ip: true });
-          const s = document.createElement('script');
-          s.async = true;
-          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP';
-          s.dataset.consentLoaded = 'true';
-          document.head.appendChild(s);
-        }
-
-        function apply(value) {
-          localStorage.setItem(consentKey, value);
-          if (value === 'granted') loadGA();
-          if (banner) banner.hidden = true;
-          if (settings) settings.hidden = true;
-          if (toggle) toggle.checked = value === 'granted';
-        }
-
-        const saved = localStorage.getItem(consentKey);
-        if (!saved) {
-          if (banner) banner.hidden = false;
-        } else if (saved === 'granted') {
-          loadGA();
-          if (toggle) toggle.checked = true;
-        }
-
-        document.getElementById('cookie-accept')?.addEventListener('click', () => apply('granted'));
-        document.getElementById('cookie-decline')?.addEventListener('click', () => apply('denied'));
-        document.getElementById('open-cookie-settings')?.addEventListener('click', () => {
-          if (toggle) toggle.checked = localStorage.getItem(consentKey) === 'granted';
-          if (settings) settings.hidden = false;
-        });
-        document.getElementById('cookie-close')?.addEventListener('click', () => { if (settings) settings.hidden = true; });
-        document.getElementById('cookie-save')?.addEventListener('click', () => apply(toggle?.checked ? 'granted' : 'denied'));
-      })();
-    </script>
+    <SiteFooter lang="vi" />
+  </body>
+</html>
   </body>
 </html>

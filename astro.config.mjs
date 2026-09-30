@@ -4,7 +4,8 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 // Cấu hình domain duy nhất của toàn dự án. Để trống vẫn build bình thường.
-const SITE = '';
+// Đã đặt thành https://dainampark.com để canonical / Open Graph / sitemap được sinh ra.
+const SITE = 'https://dainampark.com';
 const site = SITE || undefined;
 
 export default defineConfig({

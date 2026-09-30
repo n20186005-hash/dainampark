@@ -1,0 +1,134 @@
+---
+import '../styles/global.css';
+import BaseHead from '../components/BaseHead.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const siteBase = 'https://dainampark.com';
+const canonical = `${siteBase}/gio-mo-cua/`;
+const ogImage = `${siteBase}/brand/apple-touch-icon.png`;
+
+const faq = [
+  { q: 'Khu du lịch Đại Nam mở cửa mấy giờ?', a: 'Khung giờ phổ biến được công bố là khoảng 08:00–17:00 các ngày trong tuần và kéo dài đến khoảng 18:00 vào cuối tuần đối với một số phân khu. Lịch cụ thể của Kim Điện, Bảo Tháp, biển, vườn thú và khu trò chơi có thể khác nhau.' },
+  { q: 'Ngày nào Đại Nam đông nhất?', a: 'Thứ Bảy, Chủ nhật và các dịp lễ thường đông hơn. Đến sớm (trước 09:00) giúp giảm thời gian xếp hàng và tránh nắng gắt buổi trưa.' },
+  { q: 'Mấy giờ nên đến để chụp ảnh đẹp?', a: 'Buổi sáng 08:00–10:30 có ánh sáng dịu và sân quảng trường ít người, rất hợp để chụp kiến trúc vàng và khu Văn Hiến.' },
+  { q: 'Có đóng cửa vào ngày mưa bão không?', a: 'Một số trò chơi ngoài trời hoặc biển nhân tạo có thể tạm ngưng khi thời tiết xấu. Nên xem kênh chính thức hoặc gọi hotline trước ngày đi.' },
+  { q: 'Giờ trả xe và ra cổng muộn nhất?', a: 'Nên căn cứ theo giờ đóng cửa của phân khu bạn tham gia (thường 17:00–18:00) và giữ vé gửi xe đến khi rời bãi. Khung giờ cụ thể thay đổi theo mùa.' },
+];
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: `${siteBase}/` },
+    { '@type': 'ListItem', position: 2, name: 'Giờ mở cửa', item: canonical },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+<!doctype html>
+<html lang="vi">
+  <head>
+    <BaseHead
+      lang="vi"
+      title="Giờ mở cửa Khu du lịch Đại Nam | Khung giờ & lịch tham khảo"
+      description="Giờ mở cửa Khu du lịch Đại Nam: khung giờ tham khảo 08:00–17:00, cuối tuần đến 18:00, giờ từng phân khu, thời điểm nên đi và lưu ý trước xuất phát."
+      ogTitle="Giờ mở cửa Đại Nam — cẩm nang tham khảo"
+      ogDescription="Khung giờ tham khảo, giờ từng phân khu và thời điểm nên đến Đại Nam."
+      canonical={canonical}
+      ogImage={ogImage}
+      schema={[breadcrumb, faqSchema]}
+    />
+  </head>
+  <body>
+    <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#073f35]/92 backdrop-blur-xl">
+      <div class="section-shell flex min-h-18 items-center justify-between gap-5 py-3">
+        <a href="/" class="shrink-0 rounded-lg bg-[#fffaf0] px-2 py-1"><img src="/brand/logo.svg" alt="Đại Nam Cẩm nang tham quan" class="h-10 w-auto" width="340" height="88" /></a>
+        <nav aria-label="Điều hướng" class="hidden items-center gap-5 lg:flex">
+          <a class="nav-link" href="/#kham-pha">Khám phá</a>
+          <a class="nav-link" href="/#ve">Vé</a>
+          <a class="nav-link" href="/#di-lai">Giao thông</a>
+          <a class="nav-link" href="/#faq">FAQ</a>
+        </nav>
+        <a class="nav-link" href="/en/" lang="en" hreflang="en">English</a>
+        <a class="btn-primary text-sm" href="https://maps.app.goo.gl/TX4Pg89WH76YqUMa9" target="_blank" rel="noreferrer">Mở Maps</a>
+      </div>
+    </header>
+
+    <main id="top" class="pt-28">
+      <section class="hero-image pattern-frame text-white">
+        <div class="section-shell grid min-h-[420px] items-end gap-8 pb-16 pt-12">
+          <div class="max-w-3xl">
+            <p class="kicker !text-[#f1c95f]">Giờ mở cửa</p>
+            <h1 class="mt-4 text-5xl font-bold leading-[1.02] sm:text-6xl">Mấy giờ Đại Nam mở cửa?</h1>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-emerald-50/90">Khung giờ tham khảo phổ biến là <b>08:00–17:00</b> ngày thường và đến <b>18:00</b> cuối tuần với một số phân khu. Lịch từng khu có thể khác nhau, nên xác nhận trước ngày đi.</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a class="btn-primary" href="tel:+842743845878">Gọi +84 274 384 5878</a>
+              <a class="btn-ghost" href="https://khudulichdainam.com.vn/" target="_blank" rel="noreferrer">Trang chính thức</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div class="card p-7 sm:p-9">
+            <p class="kicker">Khung giờ tham khảo</p>
+            <h2 class="mt-4 text-4xl font-bold">Ngày thường so với cuối tuần</h2>
+            <div class="mt-7 space-y-3">
+              <div class="flex gap-4 rounded-2xl bg-[#e3f1ec] p-4"><b class="min-w-32">Thứ 2–6</b><span class="text-sm leading-6">Khoảng 08:00–17:00 cho các phân khu chính.</span></div>
+              <div class="flex gap-4 rounded-2xl bg-[#f6ecd0] p-4"><b class="min-w-32">Thứ 7–CN</b><span class="text-sm leading-6">Một số khu kéo dài đến khoảng 18:00; khách đông hơn.</span></div>
+              <div class="flex gap-4 rounded-2xl bg-[#e7edf5] p-4"><b class="min-w-32">Lễ / Tết</b><span class="text-sm leading-6">Lịch có thể điều chỉnh; theo dõi kênh chính thức.</span></div>
+            </div>
+            <p class="mt-6 text-xs leading-5 text-slate-500">Giờ trên là tham khảo, không thay thế thông báo chính thức. Kim Điện, Bảo Tháp, biển, vườn thú và khu trò chơi có thể mở cửa không đồng nhất.</p>
+          </div>
+
+          <div class="card overflow-hidden bg-[#0e6a58] text-white">
+            <div class="p-7 sm:p-9">
+              <p class="kicker !text-[#f5d36f]">Thời điểm nên đến</p>
+              <h2 class="mt-4 text-4xl font-bold">Sớm để mát, trưa để nghỉ, chiều để chơi</h2>
+              <div class="mt-7 grid gap-4 sm:grid-cols-2">
+                <div class="rounded-2xl bg-white/10 p-5"><p class="text-sm text-emerald-100">Đi hợp lý nhất</p><p class="mt-1 text-xl font-bold">Trước 09:00</p><p class="mt-2 text-sm leading-6 text-emerald-50/80">Ít hàng, ánh sáng đẹp, dễ đậu xe.</p></div>
+                <div class="rounded-2xl bg-white/10 p-5"><p class="text-sm text-emerald-100">Tránh đông</p><p class="mt-1 text-xl font-bold">Ngày thường</p><p class="mt-2 text-sm leading-6 text-emerald-50/80">Thứ 7–CN và lễ thường kín chỗ hơn.</p></div>
+              </div>
+              <p class="mt-6 text-sm leading-6 text-emerald-50/80">Nếu ưu tiên biển nhân tạo hoặc trò chơi, đến sớm giúp giảm thời gian xếp hàng và tránh nắng gắt nhất.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="bg-[#f4edda] py-24">
+        <div class="section-shell grid gap-10 lg:grid-cols-[.55fr_1.45fr]">
+          <div><p class="kicker">FAQ giờ mở cửa</p><h2 class="mt-4 text-4xl font-bold">Câu hỏi thường gặp</h2></div>
+          <div class="space-y-3">
+            {faq.map((item) => (
+              <details class="card group px-5 py-4">
+                <summary class="flex items-center justify-between gap-5 font-bold"><span>{item.q}</span><span class="faq-plus text-2xl font-light text-[#0e6a58]">+</span></summary>
+                <p class="mt-3 pr-8 text-sm leading-6 text-slate-600">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell py-16">
+        <p class="kicker">Trang liên quan</p>
+        <div class="mt-5 grid gap-4 sm:grid-cols-3">
+          <a href="/ve-va-gia" class="card block p-6 hover:-translate-y-1"><h3 class="text-xl font-bold">Vé & giá</h3><p class="mt-2 text-sm text-slate-600">Phân biệt vé cổng và vé trải nghiệm.</p></a>
+          <a href="/duong-di" class="card block p-6 hover:-translate-y-1"><h3 class="text-xl font-bold">Đường đi</h3><p class="mt-2 text-sm text-slate-600">Từ TP.HCM đến Đại Nam bằng gì?</p></a>
+          <a href="/" class="card block p-6 hover:-translate-y-1"><h3 class="text-xl font-bold">Trang chủ</h3><p class="mt-2 text-sm text-slate-600">Cẩm nang tổng quan Đại Nam.</p></a>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter lang="vi" />
+  </body>
+</html>

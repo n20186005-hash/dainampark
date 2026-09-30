@@ -26,10 +26,10 @@ pnpm dev
 Tên miền chỉ cấu hình tại **một chỗ** trong `astro.config.mjs`:
 
 ```js
-const SITE = '';
+const SITE = 'https://dainampark.com';
 ```
 
-Để trống vẫn build bình thường. Khi có domain, điền URL tuyệt đối vào `SITE`; canonical, Open Graph, JSON-LD và sitemap sẽ tự dùng cấu hình đó. `@astrojs/sitemap` chỉ được kích hoạt khi `SITE` có giá trị.
+Canonical, Open Graph, JSON-LD và sitemap tự dùng cấu hình đó; `@astrojs/sitemap` chỉ được kích hoạt khi `SITE` có giá trị. Trang chủ có bản song ngữ Việt / Anh (`/`, `/en/`) và ba trang sâu: `/gio-mo-cua/`, `/ve-va-gia/`, `/duong-di/`.
 
 ## Cloudflare Workers
 

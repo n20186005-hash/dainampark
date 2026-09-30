@@ -1,0 +1,31 @@
+---
+import '../../styles/global.css';
+import BaseHead from '../../components/BaseHead.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+
+const canonical = 'https://dainampark.com/en/terms';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      lang="en"
+      title="Terms of Use | Dai Nam Visitor Guide"
+      description="Terms of use for the independent Dai Nam visitor guide."
+      canonical={canonical}
+    />
+  </head>
+  <body class="bg-[#fffaf0] text-[#17352f]">
+    <main class="section-shell py-16">
+      <a href="/en/" class="underline">← Home</a>
+      <h1 class="mt-8 text-4xl font-bold">Terms of Use</h1>
+      <div class="mt-8 max-w-3xl space-y-5 leading-7 text-slate-700">
+        <p>Content is for planning reference only and is not an official notice from the operator of Khu du lịch Đại Nam.</p>
+        <p>Ticket prices, opening hours, programmes and rules may change. Please confirm with the official channel before your visit.</p>
+        <p>Images are used under the licences stated in PHOTO_CREDITS.md. Brand and place names belong to their respective owners.</p>
+        <p>Updated: 18/09/2026.</p>
+      </div>
+    </main>
+    <SiteFooter lang="en" />
+  </body>
+</html>
