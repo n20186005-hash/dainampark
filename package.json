@@ -10,9 +10,9 @@
   "scripts": {
     "dev": "astro dev",
     "check": "astro check",
-    "build": "astro build",
+    "build": "astro build && node scripts/sanitize-build.mjs",
     "preview": "astro preview",
-    "deploy": "astro build && wrangler deploy"
+    "deploy": "pnpm run build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.2",

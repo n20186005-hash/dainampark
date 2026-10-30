@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "dai-nam-guide",
-  "main": "@astrojs/cloudflare/entrypoints/server",
+  "name": "dainampark",
+  "main": "./src/worker.ts",
   "compatibility_date": "2026-09-18",
   "compatibility_flags": [
     "nodejs_compat",
@@ -9,7 +9,8 @@
   ],
   "assets": {
     "directory": "./dist/client",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "run_worker_first": true
   },
   "observability": {
     "enabled": true

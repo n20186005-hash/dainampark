@@ -11,8 +11,9 @@ const site = SITE || undefined;
 export default defineConfig({
   site,
   output: 'server',
-  adapter: cloudflare(),
-  integrations: site ? [sitemap()] : [],
+  trailingSlash:'always',
+  adapter: cloudflare({configPath:'./wrangler.jsonc'}),
+  integrations: site ? [sitemap({filter:url=>!url.endsWith('/404/')&&!url.endsWith('/404')})] : [],
   vite: {
     plugins: [tailwindcss()]
   }

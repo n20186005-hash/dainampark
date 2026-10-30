@@ -1,48 +1,18 @@
-# Khu du lịch Đại Nam — Astro site
+# Đại Nam independent visitor guide
 
-Trang cẩm nang một trang bằng tiếng Việt, thiết kế riêng theo ngôn ngữ thị giác xanh ngọc + vàng của quần thể Đại Nam.
+Native Astro SSR, Vietnamese and English. Existing Vietnamese overview/hours/tickets/directions/legal routes retained; English counterparts added for the practical guides. Canonical HTTPS apex and trailing-slash normal pages. No booking/payment/accounts; independent and not the operator.
 
-## Công nghệ
+Node 24.21 / pnpm 12.4.2. Exact dependency versions, pnpm lock and build permissions retained. Historical Cloudflare command: `pnpm run build` then `npx wrangler deploy`, using `dist/server/wrangler.json`. Existing Worker/project `dainampark`; source config aligned, original compatibility flags and SESSION/IMAGES/ASSETS preserved. No new binding. Build adds generated-code local-path sanitization; source wrapper normalizes known host/protocol before native handler/assets.
 
-- Astro 7.3.3
-- Tailwind CSS 4.3.3 (Vite plugin)
-- TypeScript 6.0.3 (nằm trong peer range của `@astrojs/check` 0.9.10)
-- `@astrojs/cloudflare` 14.3.2 + Wrangler 4.134.0
-- pnpm 12.4.2
-- Node.js 24.21.0 LTS
-
-## Chạy local
-
-```bash
-corepack enable
+```sh
 pnpm install --frozen-lockfile
 pnpm check
-pnpm build
-pnpm dev
+pnpm run build
+pnpm exec wrangler deploy --dry-run
 ```
 
-## Cấu hình tên miền
+Maps facts are dated manual snapshots, not synchronization or locally collected reviews. Current hours/prices and availability remain unverified; address-label and source-hour conflicts are attributed.
 
-Tên miền chỉ cấu hình tại **một chỗ** trong `astro.config.mjs`:
+Existing opt-in GA UI/key retained. Withdrawal updates loaded GA runtime immediately; storage changes require readback, with visible failure and per-tab refusal veto. If shared refusal/removal cannot be verified, an old grant or one written by a failed attempt may remain usable elsewhere. Independent Cloudflare visit measurement and edge processing are separately disclosed. Browser/production remain separate gates.
 
-```js
-const SITE = 'https://dainampark.com';
-```
-
-Canonical, Open Graph, JSON-LD và sitemap tự dùng cấu hình đó; `@astrojs/sitemap` chỉ được kích hoạt khi `SITE` có giá trị. Trang chủ có bản song ngữ Việt / Anh (`/`, `/en/`) và ba trang sâu: `/gio-mo-cua/`, `/ve-va-gia/`, `/duong-di/`.
-
-## Cloudflare Workers
-
-`wrangler.jsonc` dùng entrypoint thống nhất `@astrojs/cloudflare/entrypoints/server` của adapter Astro 7 và khai báo assets cho Cloudflare Workers. Sau khi đăng nhập Cloudflare:
-
-```bash
-pnpm deploy
-```
-
-## GA4 và cookie
-
-GA4: `G-HXM22WWPKP`. Script Google Analytics chỉ được nạp sau khi khách đồng ý cookie đo lường.
-
-## Ảnh
-
-Trang dùng ảnh thực tế từ Wikimedia Commons qua URL ảnh gốc/thumbnail ổn định, kèm ghi công trên trang và trong `PHOTO_CREDITS.md`. Do môi trường đóng gói hiện tại không cho phép tải binary từ Wikimedia vào filesystem, ảnh được giữ ở dạng URL ngoài thay vì giả lập bằng ảnh sinh. Logo và favicon là tài nguyên local.
+See PHOTO_CREDITS.md, LOCAL_IMAGE_STATUS.md and SOURCES.md. Local tests/build are not a production release.
