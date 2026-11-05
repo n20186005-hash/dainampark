@@ -58,6 +58,16 @@ h1, h2, h3, .display {
   background-size: cover;
   background-position: center 48%;
 }
+.guide-hero.guide-hero-photo {
+  background-image: linear-gradient(90deg,#073f35 0%,#073f35e8 48%,#073f3548),url('/images/dai-nam-quang-truong.jpg');
+  background-position: center 48%;
+}
+.restored-photos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; padding-block:1.5rem; }
+.restored-photos figure { margin:0; overflow:hidden; border-radius:1rem; background:#fffdf7; }
+.restored-photos img { width:100%; height:220px; object-fit:cover; display:block; }
+.restored-photos figcaption { padding:.75rem; font-size:.8rem; line-height:1.5; }
+.restored-photos a { text-decoration:underline; }
+@media(max-width:650px) { .restored-photos { grid-template-columns:1fr; } }
 
 .section-shell { width: min(1180px, calc(100% - 2rem)); margin-inline: auto; }
 .card {
